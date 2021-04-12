@@ -1,6 +1,6 @@
 package me.lucyy.watercore.api.data;
 
-import me.lucyy.watercore.api.WaterModule;
+import me.lucyy.watercore.api.module.WaterModule;
 import org.jetbrains.annotations.Nullable;
 import java.io.Serializable;
 

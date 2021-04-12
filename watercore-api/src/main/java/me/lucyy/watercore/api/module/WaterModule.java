@@ -1,4 +1,4 @@
-package me.lucyy.watercore.api;
+package me.lucyy.watercore.api.module;
 
 import me.lucyy.common.command.Subcommand;
 import java.util.Set;

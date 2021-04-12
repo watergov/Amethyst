@@ -3,6 +3,7 @@ package me.lucyy.watercore.api;
 import me.lucyy.common.command.Subcommand;
 import java.util.Set;
 import me.lucyy.watercore.api.data.DataStore;
+import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
 import org.bukkit.event.Listener;
 
@@ -28,7 +29,8 @@ public abstract class WaterModule implements Listener {
 
 	/**
 	 * Gets a global data store that will be shared across any servers running on the same database. This store should
-	 * be used to store persistent data, unrelated to config.
+	 * be used to store persistent data, unrelated to config. Data should not be specific to any particular player -
+	 * use {@link WaterCoreUser#getDataStore()} for this purpose.
 	 *
 	 * @return a global data store
 	 */

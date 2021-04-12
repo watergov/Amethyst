@@ -44,6 +44,6 @@ public class WaterCoreUser {
 	 * @return the user's global data store
 	 */
 	public DataStore getDataStore() {
-		return null; // TODO}
+		return null; // TODO
 	}
 }

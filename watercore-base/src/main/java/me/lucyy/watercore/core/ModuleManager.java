@@ -22,6 +22,4 @@ public class ModuleManager {
 	public <T extends WaterModule> @Nullable T getModule(Class<T> clazz) {
 		return null; // TODO
 	}
-
-	;
 }

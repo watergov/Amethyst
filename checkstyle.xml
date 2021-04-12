@@ -7,7 +7,7 @@
     Google's Java checkstyle configuration, modded by lucyy-mc 12/04/2021:
     - replace space indentation with tabs
     - remove requirement for alphabetical imports
-    - increase line length to 120 chars from 100
+    - increase line length to 124 chars from 100
     - removed some javadoc checks
 
     Original authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
@@ -33,7 +33,7 @@
 
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
-        <property name="max" value="120"/>
+        <property name="max" value="124"/>
         <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
 

@@ -44,6 +44,23 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>me.lucyy.common</pattern>
+                            <shadedPattern>me.lucyy.watercore.dependencies.commonlib</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.kyori.adventure</pattern>
+                            <shadedPattern>me.lucyy.watercore.dependencies.adventure</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <repositories>
@@ -61,6 +78,7 @@
             <groupId>com.destroystokyo.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>1.16.5-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.lucyy</groupId>
@@ -72,6 +90,7 @@
             <groupId>net.kyori</groupId>
             <artifactId>adventure-api</artifactId>
             <version>4.7.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

@@ -15,10 +15,13 @@ public class ModuleManager {
 
 	/**
 	 * Gets the instance of a module.
+	 *
 	 * @param clazz the module class to retrieve
 	 * @return the module instance
 	 */
 	public <T extends WaterModule> @Nullable T getModule(Class<T> clazz) {
 		return null; // TODO
-	};
+	}
+
+	;
 }

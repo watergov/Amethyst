@@ -1,9 +1,8 @@
 package me.lucyy.watercore.api;
 
 import me.lucyy.common.command.Subcommand;
-import org.bukkit.event.Listener;
-
 import java.util.Set;
+import org.bukkit.event.Listener;
 
 /**
  * A module.

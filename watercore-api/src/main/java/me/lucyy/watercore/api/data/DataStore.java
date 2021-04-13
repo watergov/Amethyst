@@ -3,6 +3,7 @@ package me.lucyy.watercore.api.data;
 import me.lucyy.watercore.api.module.WaterModule;
 import org.jetbrains.annotations.Nullable;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A persistent key-value store.
@@ -28,6 +29,21 @@ public interface DataStore {
 		public Key(WaterModule parent, String child) {
 			this.parent = parent;
 			this.child = child;
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(parent.getName(), child);
+		}
+
+		@Override
+		public boolean equals(Object other) {
+			if (!(other instanceof Key<?>)) {
+				return false;
+			}
+			Key<?> otherCasted = (Key<?>) other;
+			return parent.getName().equals(otherCasted.getParent().getName())
+					&& child.equals(otherCasted.getChild());
 		}
 	}
 

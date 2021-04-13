@@ -2,6 +2,8 @@ package me.lucyy.watercore.api.version;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A semantic version.
@@ -9,6 +11,9 @@ import org.jetbrains.annotations.Nullable;
  * @see <a href="https://semver.org">https://semver.org</a>
  */
 public class SemanticVersion implements Comparable<SemanticVersion> {
+	private static final Pattern stringPattern = Pattern.compile(
+			"^([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+[0-9A-Za-z-]+)?$");
+
 	public int major;
 	public int minor;
 	public int patch;
@@ -45,6 +50,25 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
 		}
 		this.patch = patch;
 		this.suffix = suffix;
+	}
+
+	/**
+	 * Creates an instance from a string.
+	 *
+	 * @param in the string to parse
+	 * @throws NumberFormatException if the string is improperly formatted
+	 */
+	public SemanticVersion(String in) {
+		this(stringPattern.matcher(in));
+	}
+
+	private SemanticVersion(Matcher matcher) {
+		this(
+				Integer.parseInt(matcher.group(1)),
+				Integer.parseInt(matcher.group(2)),
+				Integer.parseInt(matcher.group(3)),
+				matcher.group(4)
+		);
 	}
 
 	@Override

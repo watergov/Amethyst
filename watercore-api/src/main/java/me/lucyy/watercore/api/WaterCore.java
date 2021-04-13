@@ -20,7 +20,7 @@ public class WaterCore {
 	 */
 	@Nullable
 	public static WaterCoreUser userFromName(final String name) {
-		return instance.userFromName(name); // TODO
+		return instance.userFromName(name);
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class WaterCore {
 	 */
 	@Nullable
 	public static WaterCoreUser userFromUuid(final UUID uuid) {
-		return instance.userFromUuid(uuid); // TODO
+		return instance.userFromUuid(uuid);
 	}
 
 	/**

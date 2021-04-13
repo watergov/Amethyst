@@ -1,6 +1,7 @@
 package me.lucyy.watercore.api;
 
 import me.lucyy.common.command.FormatProvider;
+import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
@@ -38,4 +39,9 @@ public interface WaterCoreProvider {
 	 * @see WaterCore#getFormatProvider()
 	 */
 	FormatProvider getFormatProvider();
+
+	/**
+	 * @see WaterCore#getConfig()
+	 */
+	DataStore getConfig();
 }

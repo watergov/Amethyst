@@ -1,6 +1,7 @@
 package me.lucyy.watercore.api;
 
 import me.lucyy.common.command.FormatProvider;
+import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
@@ -53,5 +54,15 @@ public class WaterCore {
 	 */
 	public static FormatProvider getFormatProvider() {
 		return instance.getFormatProvider();
+	}
+
+
+	/**
+	 * Gets a global data store that is tied to this server's config file.
+	 *
+	 * @return the server's config file
+	 */
+	public static DataStore getConfig() {
+		return instance.getConfig();
 	}
 }

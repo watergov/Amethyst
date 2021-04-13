@@ -32,6 +32,11 @@ public interface DataStore {
 		}
 
 		@Override
+		public String toString() {
+			return this.parent + "." + this.child;
+		}
+
+		@Override
 		public int hashCode() {
 			return Objects.hash(parent, child);
 		}

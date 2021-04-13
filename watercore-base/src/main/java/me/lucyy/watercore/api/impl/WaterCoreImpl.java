@@ -2,6 +2,7 @@ package me.lucyy.watercore.api.impl;
 
 import me.lucyy.common.command.FormatProvider;
 import me.lucyy.watercore.api.WaterCoreProvider;
+import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
@@ -18,11 +19,13 @@ public class WaterCoreImpl implements WaterCoreProvider {
 		return moduleManager;
 	}
 
+	// TODO
 	@Override
 	public @Nullable WaterCoreUser userFromName(String name) {
 		return null;
 	}
 
+	// TODO
 	@Override
 	public @Nullable WaterCoreUser userFromUuid(UUID uuid) {
 		return null;
@@ -33,8 +36,15 @@ public class WaterCoreImpl implements WaterCoreProvider {
 		return WaterCoreVersion.VERSION;
 	}
 
+	// TODO
 	@Override
 	public FormatProvider getFormatProvider() {
+		return null;
+	}
+
+	// TODO
+	@Override
+	public DataStore getConfig() {
 		return null;
 	}
 }

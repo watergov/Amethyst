@@ -50,15 +50,6 @@ public abstract class WaterModule implements Listener {
 	}
 
 	/**
-	 * Gets a global data store that is tied to this server's config file.
-	 *
-	 * @return the server's config file
-	 */
-	protected DataStore getConfig() {
-		return config;
-	}
-
-	/**
 	 * Called when this module is enabled.
 	 */
 	public void onEnable() {

@@ -1,12 +1,14 @@
 package me.lucyy.watercore.core;
 
+import me.lucyy.watercore.api.impl.WaterCoreImpl;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class WaterCorePlugin extends JavaPlugin {
+	private WaterCoreImpl waterCore;
+
 	@Override
 	public void onEnable() {
-		// Plugin startup logic
-
+		waterCore = new WaterCoreImpl();
 	}
 
 	@Override

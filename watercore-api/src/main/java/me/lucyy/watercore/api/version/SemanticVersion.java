@@ -14,17 +14,41 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
 	private static final Pattern stringPattern = Pattern.compile(
 			"^([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+[0-9A-Za-z-]+)?$");
 
-	public int major;
-	public int minor;
-	public int patch;
+	private final int major;
+	private final int minor;
+	private final int patch;
+	private @Nullable final String suffix;
 
 	/**
-	 * Described as a "pre-release" version in the spec, refers to any text after but not including a hyphen in the
-	 * version. Used to denote that this version is a pre-release.
+	 * Gets the major version. This should be incremented when you make incompatible API changes.
+	 */
+	public int getMajor() {
+		return major;
+	}
+
+	/**
+	 * Gets the minor version. This should be incremented when you add functionality in a backwards compatible manner.
+	 */
+	public int getMinor() {
+		return minor;
+	}
+
+	/**
+	 * Gets the patch version. This should be incremented when you make backwards-compatible bug fixes.
+	 */
+	public int getPatch() {
+		return patch;
+	}
+
+	/**
+	 * Gets the version suffix. Described as a "pre-release" version in the spec, refers to any text after but not
+	 * including a hyphen in theversion.
 	 *
 	 * @see <a href="https://semver.org#spec-item-9">https://semver.org#spec-item-9</a>
 	 */
-	public @Nullable String suffix;
+	public @Nullable String getSuffix() {
+		return suffix;
+	}
 
 	/**
 	 * Creates an instance from major, minor and patch specified as integers.

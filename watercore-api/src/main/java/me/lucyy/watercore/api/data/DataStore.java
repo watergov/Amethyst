@@ -15,10 +15,10 @@ public interface DataStore {
 	 * @param <T> the type of the value at this key
 	 */
 	class Key<T extends Serializable> {
-		private final WaterModule parent;
+		private final String parent;
 		private final String child;
 
-		WaterModule getParent() {
+		String getParent() {
 			return parent;
 		}
 
@@ -27,13 +27,13 @@ public interface DataStore {
 		}
 
 		public Key(WaterModule parent, String child) {
-			this.parent = parent;
+			this.parent = parent.getName();
 			this.child = child;
 		}
 
 		@Override
 		public int hashCode() {
-			return Objects.hash(parent.getName(), child);
+			return Objects.hash(parent, child);
 		}
 
 		@Override
@@ -42,7 +42,7 @@ public interface DataStore {
 				return false;
 			}
 			Key<?> otherCasted = (Key<?>) other;
-			return parent.getName().equals(otherCasted.getParent().getName())
+			return parent.equals(otherCasted.getParent())
 					&& child.equals(otherCasted.getChild());
 		}
 	}

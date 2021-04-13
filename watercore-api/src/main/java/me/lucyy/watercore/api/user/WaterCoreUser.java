@@ -6,10 +6,11 @@ import net.kyori.adventure.text.Component;
 public interface WaterCoreUser {
 
 	/**
-	 * Gets the user's display name. This will vary depending on the enabled modules, but may contain:
+	 * Gets the user's display name. This will vary depending on the enabled modules and the config, but may contain:
 	 * <ul>
 	 *     <li>nicknames</li>
 	 *     <li>prefixes and suffixes for ranks</li>
+	 *     <li>statistics</li>
 	 * </ul>
 	 */
 	Component getDisplayName();

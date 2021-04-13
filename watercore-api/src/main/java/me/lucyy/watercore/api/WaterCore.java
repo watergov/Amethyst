@@ -1,5 +1,6 @@
 package me.lucyy.watercore.api;
 
+import me.lucyy.common.command.FormatProvider;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
@@ -45,5 +46,12 @@ public class WaterCore {
 	 */
 	public static SemanticVersion getVersion() {
 		return instance.getVersion();
+	}
+
+	/**
+	 * Gets the plugin's format provider.
+	 */
+	public static FormatProvider getFormatProvider() {
+		return instance.getFormatProvider();
 	}
 }

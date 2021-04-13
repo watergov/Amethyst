@@ -1,16 +1,21 @@
-package me.lucyy.watercore.core;
+package me.lucyy.watercore.api.impl;
 
+import me.lucyy.common.command.FormatProvider;
 import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
+import me.lucyy.watercore.core.WaterCoreVersion;
 import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 public class WaterCoreImpl implements WaterCoreProvider {
+
+	private final ModuleManager moduleManager = new BukkitModuleManager();
+
 	@Override
 	public ModuleManager getModuleManager() {
-		return null;
+		return moduleManager;
 	}
 
 	@Override
@@ -26,5 +31,10 @@ public class WaterCoreImpl implements WaterCoreProvider {
 	@Override
 	public SemanticVersion getVersion() {
 		return WaterCoreVersion.VERSION;
+	}
+
+	@Override
+	public FormatProvider getFormatProvider() {
+		return null;
 	}
 }

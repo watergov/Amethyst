@@ -1,4 +1,4 @@
-package me.lucyy.watercore.core.data;
+package me.lucyy.watercore.api.impl.data;
 
 import me.lucyy.watercore.api.data.DataStore;
 import org.jetbrains.annotations.Nullable;

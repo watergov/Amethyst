@@ -11,6 +11,17 @@ import org.bukkit.event.Listener;
  * A module.
  */
 public abstract class WaterModule implements Listener {
+	private final DataStore config;
+	private final DataStore dataStore;
+
+	/**
+	 * This constructor should not be called by a plugin
+	 */
+	public WaterModule(DataStore config, DataStore dataStore) {
+		this.config = config;
+		this.dataStore = dataStore;
+	}
+
 	/**
 	 * Gets the name of this module.
 	 */
@@ -35,7 +46,7 @@ public abstract class WaterModule implements Listener {
 	 * @return a global data store
 	 */
 	protected DataStore getDataStore() {
-		return null; // TODO
+		return dataStore;
 	}
 
 	/**
@@ -44,7 +55,7 @@ public abstract class WaterModule implements Listener {
 	 * @return the server's config file
 	 */
 	protected DataStore getConfig() {
-		return null; // TODO
+		return config;
 	}
 
 	/**

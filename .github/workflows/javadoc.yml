@@ -21,8 +21,7 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B javadoc:javadoc --file watercore-api/pom.xml
-    - name: GitHub Pages
-
     - uses: crazy-max/ghaction-github-pages@v2.3.0
-      build_dir: watercore-api/target/site/apidocs
-      fqdn: gh.redaam.net
+      with:
+        build_dir: watercore-api/target/site/apidocs
+        fqdn: gh.redaam.net

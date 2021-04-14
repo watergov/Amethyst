@@ -15,7 +15,7 @@ import static me.lucyy.watercore.api.WaterCore.getFormatProvider;
 public class VersionSubcommand implements Subcommand {
 	@Override
 	public String getName() {
-		return "Version";
+		return "watercore";
 	}
 
 	@Override
@@ -35,15 +35,19 @@ public class VersionSubcommand implements Subcommand {
 
 	@Override
 	public boolean execute(CommandSender sender, CommandSender target, String[] args) {
-		TextComponent nl = Component.text("\n");
-		Component out = formatTitle("WaterCore", getFormatProvider()).append(nl)
-				.append(getFormatProvider().formatMain("WaterCore version "))
-				.append(getFormatProvider().formatAccent(WaterCoreVersion.VERSION.toString())).append(nl);
+		Component nl = Component.newline();
+		Component out = Component.empty()
+				.append(formatTitle("WaterCore", getFormatProvider()).append(nl));
+
+		Component coreVersion = nl.append(getFormatProvider().formatMain("WaterCore version "))
+				.append(getFormatProvider().formatAccent(WaterCoreVersion.VERSION.toString()));
+
+		out = out.append(coreVersion).append(nl);
 
 		for (WaterModule module : WaterCore.getModuleManager().getLoadedModules()) {
-			out = out.append(getFormatProvider().formatMain(module.getName() + " "))
-					.append(getFormatProvider().formatAccent(module.getVersion().toString()))
-					.append(nl);
+			Component moduleVersion = getFormatProvider().formatMain(module.getName() + " ")
+					.append(getFormatProvider().formatAccent(module.getVersion().toString()));
+			out = out.append(moduleVersion).append(nl);
 		}
 		out = out.append(nl).append(formatTitle("*", getFormatProvider()));
 		Platform.send(sender, out);

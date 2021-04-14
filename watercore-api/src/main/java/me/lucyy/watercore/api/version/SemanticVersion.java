@@ -82,12 +82,12 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
 	 * @param in the string to parse
 	 * @throws NumberFormatException if the string is improperly formatted
 	 */
-	public SemanticVersion(String in) {
-		this(stringPattern.matcher(in));
-	}
-
-	private SemanticVersion(Matcher matcher) {
-		this(
+	public static SemanticVersion fromString(String in) {
+		Matcher matcher = stringPattern.matcher(in);
+		if (!matcher.find()) {
+			throw new IllegalArgumentException("Did not match the expected format");
+		}
+		return new SemanticVersion(
 				Integer.parseInt(matcher.group(1)),
 				Integer.parseInt(matcher.group(2)),
 				Integer.parseInt(matcher.group(3)),

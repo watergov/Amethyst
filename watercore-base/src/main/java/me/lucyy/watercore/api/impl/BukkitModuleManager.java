@@ -47,6 +47,7 @@ public class BukkitModuleManager implements ModuleManager {
 			for (Subcommand subcmd : module.getCommands()) {
 				commandMap.register("watercore." + module.getName(), new SubcommandWrapper(subcmd));
 			}
+			loadedModules.put(clazz, module);
 		} catch (Exception e) {
 			throw new ModuleInitException(clazz.getName(), e);
 		}

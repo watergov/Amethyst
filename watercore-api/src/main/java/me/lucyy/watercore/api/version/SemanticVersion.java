@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
  * @see <a href="https://semver.org">https://semver.org</a>
  */
 public class SemanticVersion implements Comparable<SemanticVersion> {
-	private static final Pattern stringPattern = Pattern.compile(
-			"^([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?(?:\\+[0-9A-Za-z-]+)?$");
+	// this pattern is not 100% spec-compliant but it works
+	private static final Pattern stringPattern = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)(?>-(.+))?");
 
 	private final int major;
 	private final int minor;

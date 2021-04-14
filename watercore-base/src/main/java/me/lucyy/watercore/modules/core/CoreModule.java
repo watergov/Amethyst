@@ -1,20 +1,17 @@
-package me.lucyy.watercore.core.module;
+package me.lucyy.watercore.modules.core;
 
 import me.lucyy.common.command.Subcommand;
-import me.lucyy.common.command.VersionSubcommand;
 import me.lucyy.watercore.api.WaterCore;
 import me.lucyy.watercore.api.module.WaterModule;
 import me.lucyy.watercore.api.version.SemanticVersion;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
+import me.lucyy.watercore.modules.core.command.VersionSubcommand;
 import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
-public class CoreModule extends WaterModule {
+public class  CoreModule extends WaterModule {
 
 	// TODO avoid any plugin references
-	private final Set<Subcommand> commands = Set.of(new VersionSubcommand(WaterCore.getFormatProvider(),
-			(JavaPlugin) Bukkit.getPluginManager().getPlugin("WaterCore")));
+	private final Set<Subcommand> commands = Set.of(new VersionSubcommand());
 
 	@Override
 	public @NotNull String getName() {

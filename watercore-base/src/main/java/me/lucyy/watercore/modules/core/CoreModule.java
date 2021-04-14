@@ -8,9 +8,8 @@ import me.lucyy.watercore.modules.core.command.VersionSubcommand;
 import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
-public class  CoreModule extends WaterModule {
+public class CoreModule extends WaterModule {
 
-	// TODO avoid any plugin references
 	private final Set<Subcommand> commands = Set.of(new VersionSubcommand());
 
 	@Override

@@ -22,9 +22,19 @@ public class SubcommandWrapper extends Command {
 		return subcommand.getPermission();
 	}
 
+	@NotNull
+	@Override
+	public String getUsage() {
+		return subcommand.getUsage();
+	}
+
 	@Override
 	public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
-		return subcommand.execute(sender, sender, args);
+		boolean result = subcommand.execute(sender, sender, args);
+		if (!result) {
+			sender.sendMessage(getUsage());
+		}
+		return result;
 	}
 
 	@NotNull

@@ -3,13 +3,16 @@ package me.lucyy.watercore.api.impl;
 import me.lucyy.common.command.FormatProvider;
 import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.data.DataStore;
+import me.lucyy.watercore.api.impl.data.BukkitConfigDataStore;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
+import me.lucyy.watercore.core.WaterCorePlugin;
 import me.lucyy.watercore.core.WaterCoreVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.jetbrains.annotations.Nullable;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.UUID;
 
@@ -17,17 +20,22 @@ public class WaterCoreImpl implements WaterCoreProvider {
 
 	private final ModuleManager moduleManager;
 	private final FormatProvider format = new TempHardcodedFormatProvider();
+	private final WaterCorePlugin plugin;
+	private final DataStore config;
 
 	/**
 	 * Default constructor
 	 */
-	public WaterCoreImpl() throws NoSuchFieldException, IllegalAccessException {
+	public WaterCoreImpl(WaterCorePlugin plugin) throws NoSuchFieldException, IllegalAccessException {
+		this.plugin = plugin;
 		final Field cmdMapField;
-		CommandMap cmdMap;
 		cmdMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 		cmdMapField.setAccessible(true);
-		cmdMap = (CommandMap) cmdMapField.get(Bukkit.getServer());
+		CommandMap cmdMap = (CommandMap) cmdMapField.get(Bukkit.getServer());
 		moduleManager = new BukkitModuleManager(cmdMap);
+
+		config = new BukkitConfigDataStore(
+				new File(plugin.getDataFolder(), "config.yml"));
 	}
 
 	@Override
@@ -61,7 +69,7 @@ public class WaterCoreImpl implements WaterCoreProvider {
 	// TODO
 	@Override
 	public DataStore getConfig() {
-		return null;
+		return config;
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public final class WaterCorePlugin extends JavaPlugin {
 	public void onEnable() {
 		try {
 			new Platform(this);
-			WaterCoreImpl waterCore = new WaterCoreImpl();
+			WaterCoreImpl waterCore = new WaterCoreImpl(this);
 			WaterCore.setProvider(waterCore);
 			waterCore.getModuleManager().loadModule(CoreModule.class); // TODO remove this
 		} catch (NoSuchFieldException | IllegalAccessException e) {
@@ -22,6 +22,7 @@ public final class WaterCorePlugin extends JavaPlugin {
 		} catch (ClassNotFoundException e) {
 			getPluginLoader().disablePlugin(this);
 		}
+		saveConfig();
 	}
 
 	@Override

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.lucyy.watercore.api"},{"l":"me.lucyy.watercore.api.data"},{"l":"me.lucyy.watercore.api.exception"},{"l":"me.lucyy.watercore.api.module"},{"l":"me.lucyy.watercore.api.user"},{"l":"me.lucyy.watercore.api.version"}];updateSearchResults();

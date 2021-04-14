@@ -44,4 +44,9 @@ public interface WaterCoreProvider {
 	 * @see WaterCore#getConfig()
 	 */
 	DataStore getConfig();
+
+	/**
+	 * @see WaterCore#getDataStore()
+	 */
+	DataStore getDataStore();
 }

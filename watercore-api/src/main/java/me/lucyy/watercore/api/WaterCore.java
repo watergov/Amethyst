@@ -65,4 +65,15 @@ public class WaterCore {
 	public static DataStore getConfig() {
 		return instance.getConfig();
 	}
+
+	/**
+	 * Gets a global data store that will be shared across any servers running on the same database. This store should
+	 * be used to store persistent data, unrelated to config. Data should not be specific to any particular player -
+	 * use {@link WaterCoreUser#getDataStore()} for this purpose.
+	 *
+	 * @return a global data store
+	 */
+	public static DataStore getDataStore() {
+		return instance.getDataStore();
+	}
 }

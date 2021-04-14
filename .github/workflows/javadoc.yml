@@ -25,3 +25,5 @@ jobs:
       with:
         build_dir: watercore-api/target/site/apidocs
         fqdn: gh.redaam.net
+      env:
+        token: ${{ secrets.GITHUB_TOKEN }}

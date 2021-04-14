@@ -21,9 +21,8 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B javadoc:javadoc --file watercore-api/pom.xml
-    - uses: crazy-max/ghaction-github-pages@v2.3.0
+    - name: Deploy javadocs
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        build_dir: watercore-api/target/site/apidocs
-        fqdn: gh.redaam.net
-      env:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./watercore-api/target/site/apidocs

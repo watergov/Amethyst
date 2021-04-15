@@ -22,8 +22,12 @@ import me.lucyy.common.command.Subcommand;
 import me.lucyy.watercore.api.exception.ModuleInitException;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.module.WaterModule;
+import me.lucyy.watercore.core.WaterCorePlugin;
 import me.lucyy.watercore.core.command.SubcommandWrapper;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.io.File;
@@ -32,21 +36,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
-import java.util.logging.Logger;
 
 public class BukkitModuleManager implements ModuleManager {
 
 	private final Map<Class<? extends WaterModule>, WaterModule> loadedModules = new HashMap<>();
+	private final Map<WaterModule, List<Listener>> listeners = new HashMap<>();
 	private final CommandMap commandMap;
-	private final Logger logger;
+	private final WaterCorePlugin plugin;
 
-	public BukkitModuleManager(@NotNull CommandMap commandMap, Logger logger) {
+	public BukkitModuleManager(@NotNull CommandMap commandMap, WaterCorePlugin plugin) {
 		this.commandMap = commandMap;
-		this.logger = logger;
+		this.plugin = plugin;
 	}
 
 	@Override
@@ -76,15 +81,12 @@ public class BukkitModuleManager implements ModuleManager {
 				commandMap.register("watercore." + module.getName(), new SubcommandWrapper(subcmd));
 			}
 			loadedModules.put(clazz, module);
-			logger.info("Loaded module '" + module.getName() + "'.");
+			plugin.getLogger().info("Loaded module '" + module.getName() + "'.");
 		} catch (Exception e) {
 			throw new ModuleInitException(clazz.getName(), e);
 		}
 	}
 
-	/**
-	 * Loads a module from a file.
-	 */
 	@Override
 	public void loadModule(@NotNull final File file) {
 		if (!file.exists()) {
@@ -118,12 +120,33 @@ public class BukkitModuleManager implements ModuleManager {
 					}
 				} catch (final NoClassDefFoundError ignored) {
 					// fixme - do we need to log this?
-					logger.warning("Failed to load class '" + className + "'");
+					plugin.getLogger().warning("Failed to load class '" + className + "'");
 				}
 			}
 		} catch (IOException | ClassNotFoundException e) {
-			logger.severe("Failed to load the module '" + file.getName() + "':");
+			plugin.getLogger().severe("Failed to load the module '" + file.getName() + "':");
 			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void registerListener(WaterModule module, Listener listener) {
+		if (!listeners.containsKey(module)) {
+			listeners.put(module, List.of(listener));
+		} else {
+			listeners.get(module).add(listener);
+		}
+		Bukkit.getPluginManager().registerEvents(listener, plugin);
+	}
+
+	@Override
+	public void unloadModule(WaterModule module) {
+		module.onDisable();
+		List<Listener> moduleListeners = listeners.get(module);
+		if (moduleListeners != null) {
+			for (Listener list : moduleListeners) {
+				HandlerList.unregisterAll(list);
+			}
 		}
 	}
 }

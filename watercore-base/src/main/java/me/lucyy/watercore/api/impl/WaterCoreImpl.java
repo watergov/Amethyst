@@ -53,7 +53,7 @@ public class WaterCoreImpl implements WaterCoreProvider {
 		config = new BukkitConfigDataStore(
 				new File(plugin.getDataFolder(), "config.yml"));
 
-		moduleManager = new BukkitModuleManager(cmdMap, plugin.getLogger());
+		moduleManager = new BukkitModuleManager(cmdMap, plugin);
 	}
 
 	@Override

@@ -21,13 +21,12 @@ package me.lucyy.watercore.api.module;
 import me.lucyy.common.command.Subcommand;
 import java.util.Set;
 import me.lucyy.watercore.api.version.SemanticVersion;
-import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A module.
  */
-public abstract class WaterModule implements Listener {
+public abstract class WaterModule {
 
 	/**
 	 * Gets the name of this module.

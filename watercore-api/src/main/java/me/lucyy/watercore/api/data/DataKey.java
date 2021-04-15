@@ -44,11 +44,24 @@ public class DataKey<T extends Serializable> {
 	 * Creates a new key.
 	 *
 	 * @param parent the module this key belongs to
-	 * @param child the child string node
-	 * @param clazz the class of the expected type
+	 * @param child  the child string node
+	 * @param clazz  the class of the expected type
 	 */
 	public DataKey(WaterModule parent, String child, Class<T> clazz) {
 		this.parent = parent.getName();
+		this.child = child;
+		this.clazz = clazz;
+	}
+
+	/**
+	 * Creates a new key. Avoid using this in favour of {@link DataKey#DataKey(WaterModule, String, Class)}.
+	 *
+	 * @param parent the name of the module this key belongs to
+	 * @param child  the child string node
+	 * @param clazz  the class of the expected type
+	 */
+	public DataKey(String parent, String child, Class<T> clazz) {
+		this.parent = parent;
 		this.child = child;
 		this.clazz = clazz;
 	}

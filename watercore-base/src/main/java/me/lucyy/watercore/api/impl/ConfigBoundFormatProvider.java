@@ -20,15 +20,40 @@ package me.lucyy.watercore.api.impl;
 
 import me.lucyy.common.command.FormatProvider;
 import me.lucyy.common.format.TextFormatter;
+import me.lucyy.watercore.api.data.DataKey;
+import me.lucyy.watercore.api.data.DataStore;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 /**
- * @deprecated This class should only be used for testing
+ * A format provider bound to a DataStore.
  */
-public class TempHardcodedFormatProvider implements FormatProvider {
+public class ConfigBoundFormatProvider implements FormatProvider {
+	private final DataStore store;
+	private final DataKey<String> mainKey;
+	private final DataKey<String> accentKey;
+	private final DataKey<String> prefixKey;
+
+	/**
+	 * Creates a new config-bound format provider.
+	 *
+	 * @param store the DataStore to use. The keys "core.format.main", "core.format.accent" and "core.format.prefix"
+	 *              will be interfaced with.
+	 */
+	public ConfigBoundFormatProvider(DataStore store) {
+		this.store = store;
+		mainKey = new DataKey<>("core", "format.main", String.class);
+		accentKey = new DataKey<>("core", "format.accent", String.class);
+		prefixKey = new DataKey<>("core", "format.prefix", String.class);
+
+		store.setDefaultValue(mainKey, "&f");
+		store.setDefaultValue(accentKey, "{#80f4ff>}%s{#808aff<}");
+		store.setDefaultValue(prefixKey, "{#80f4ff>}WaterCore{#808aff<} &7>>");
+
+	}
+
 	private final Map<TextDecoration, Character> decoStrings = Map.of(
 			TextDecoration.OBFUSCATED, 'k',
 			TextDecoration.BOLD, 'l',
@@ -56,16 +81,19 @@ public class TempHardcodedFormatProvider implements FormatProvider {
 
 	@Override
 	public Component formatMain(@NotNull String s, TextDecoration... formatters) {
-		return applyFormatter("&f", s, serialiseFormatters(formatters));
+		//noinspection ConstantConditions - default value given in constructor
+		return applyFormatter(store.getValue(mainKey), s, serialiseFormatters(formatters));
 	}
 
 	@Override
 	public Component formatAccent(@NotNull String s, TextDecoration... formatters) {
-		return applyFormatter("{#80f4ff>}%s{#808aff<}", s, serialiseFormatters(formatters));
+		//noinspection ConstantConditions - default value given in constructor
+		return applyFormatter(store.getValue(accentKey), s, serialiseFormatters(formatters));
 	}
 
 	@Override
 	public Component getPrefix() {
-		return null;
+		//noinspection ConstantConditions - default value given in constructor
+		return TextFormatter.format(store.getValue(prefixKey));
 	}
 }

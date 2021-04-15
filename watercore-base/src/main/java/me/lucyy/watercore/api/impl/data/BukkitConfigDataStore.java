@@ -20,6 +20,7 @@ package me.lucyy.watercore.api.impl.data;
 
 import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.data.DataKey;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.Nullable;
@@ -43,14 +44,7 @@ public class BukkitConfigDataStore implements DataStore {
 		baseFile = file;
 	}
 
-	@Override
-	public <T extends Serializable> @Nullable T getValue(DataKey<T> key) {
-		return base.getObject(key.toString(), key.getClazz());
-	}
-
-	@Override
-	public <T extends Serializable> void setValue(DataKey<T> key, T value) {
-		base.set(key.toString(), value);
+	private void save() {
 		try {
 			base.save(baseFile);
 		} catch (IOException e) {
@@ -59,7 +53,30 @@ public class BukkitConfigDataStore implements DataStore {
 	}
 
 	@Override
+	public <T extends Serializable> @Nullable T getValue(DataKey<T> key) {
+		return base.getObject(key.toString(), key.getClazz());
+	}
+
+	@Override
+	public <T extends Serializable> void setValue(DataKey<T> key, T value) {
+		base.set(key.toString(), value);
+		save();
+	}
+
+	@Override
 	public <T extends Serializable> void setDefaultValue(DataKey<T> key, T value) {
 		base.addDefault(key.toString(), value);
+		save();
+	}
+
+	/**
+	 * Reloads the config from the file.
+	 */
+	public void reload() {
+		try {
+			base.load(baseFile);
+		} catch (IOException | InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -19,7 +19,9 @@
 package me.lucyy.watercore.api.module;
 
 import me.lucyy.watercore.api.exception.ModuleInitException;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.io.File;
 import java.util.Collection;
 
 /**
@@ -54,4 +56,11 @@ public interface ModuleManager {
 	 * @throws ModuleInitException if an exception is thrown when the module is instantiated or enabled
 	 */
 	void loadModule(Class<? extends WaterModule> clazz) throws ModuleInitException;
+
+	/**
+	 * Loads from a file, instantiating any modules it finds.
+	 *
+	 * @param file the file to read
+	 */
+	void loadModule(@NotNull File file);
 }

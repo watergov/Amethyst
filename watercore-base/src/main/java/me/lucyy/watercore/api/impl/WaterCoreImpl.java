@@ -50,10 +50,10 @@ public class WaterCoreImpl implements WaterCoreProvider {
 		cmdMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 		cmdMapField.setAccessible(true);
 		CommandMap cmdMap = (CommandMap) cmdMapField.get(Bukkit.getServer());
-		moduleManager = new BukkitModuleManager(cmdMap);
-
 		config = new BukkitConfigDataStore(
 				new File(plugin.getDataFolder(), "config.yml"));
+
+		moduleManager = new BukkitModuleManager(cmdMap, plugin.getLogger());
 	}
 
 	@Override

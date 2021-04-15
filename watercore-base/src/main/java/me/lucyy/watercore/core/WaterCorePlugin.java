@@ -23,6 +23,8 @@ import me.lucyy.watercore.api.WaterCore;
 import me.lucyy.watercore.api.impl.WaterCoreImpl;
 import me.lucyy.watercore.modules.core.CoreModule;
 import org.bukkit.plugin.java.JavaPlugin;
+import java.io.File;
+import java.util.Objects;
 
 @SuppressWarnings("unused")
 public final class WaterCorePlugin extends JavaPlugin {
@@ -34,6 +36,19 @@ public final class WaterCorePlugin extends JavaPlugin {
 			WaterCoreImpl waterCore = new WaterCoreImpl(this);
 			WaterCore.setProvider(waterCore);
 			waterCore.getModuleManager().loadModule(CoreModule.class); // TODO remove this
+			// scan for files in the modules dir
+			File modulesDir = new File(getDataFolder(), "modules");
+			if (modulesDir.isFile()) {
+				getLogger().severe("Modules directory was actually a file!");
+				return;
+			}
+			modulesDir.mkdirs();
+
+			// this should not return null due to the directory check above
+			for (File module : Objects.requireNonNull(modulesDir.listFiles())) {
+				waterCore.getModuleManager().loadModule(module);
+			}
+
 		} catch (NoSuchFieldException | IllegalAccessException e) {
 			e.printStackTrace();
 			getPluginLoader().disablePlugin(this);

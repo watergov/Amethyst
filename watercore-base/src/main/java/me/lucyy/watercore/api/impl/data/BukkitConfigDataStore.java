@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * A data store tied to a Bukkit ConfigurationSection.
+ * A data store tied to a YAML file.
  */
 public class BukkitConfigDataStore implements DataStore {
 	private final FileConfiguration base;
@@ -39,6 +39,7 @@ public class BukkitConfigDataStore implements DataStore {
 	 */
 	public BukkitConfigDataStore(File file) {
 		base = YamlConfiguration.loadConfiguration(file);
+		base.options().copyDefaults(true);
 		baseFile = file;
 	}
 
@@ -55,5 +56,10 @@ public class BukkitConfigDataStore implements DataStore {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public <T extends Serializable> void setDefaultValue(DataKey<T> key, T value) {
+		base.addDefault(key.toString(), value);
 	}
 }

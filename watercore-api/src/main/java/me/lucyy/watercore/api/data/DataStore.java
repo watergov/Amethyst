@@ -41,4 +41,12 @@ public interface DataStore {
 	 * @param value the value to set, or null to clear it
 	 */
 	<T extends Serializable> void setValue(DataKey<T> key, T value);
+
+	/**
+	 * Sets the value of a key if it isn't set already.
+	 *
+	 * @param key	the key to set the default for
+	 * @param value the default value to set
+	 */
+	<T extends Serializable> void setDefaultValue(DataKey<T> key, T value);
 }

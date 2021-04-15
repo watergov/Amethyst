@@ -16,41 +16,43 @@
  * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.lucyy.watercore.modules.core;
+package me.lucyy.watercore.modules.core.command;
 
 import me.lucyy.common.command.Subcommand;
 import me.lucyy.watercore.api.WaterCore;
-import me.lucyy.watercore.api.module.WaterModule;
-import me.lucyy.watercore.api.version.SemanticVersion;
-import me.lucyy.watercore.modules.core.command.ReloadSubcommand;
-import me.lucyy.watercore.modules.core.command.VersionSubcommand;
-import org.jetbrains.annotations.NotNull;
-import java.util.Set;
+import me.lucyy.watercore.api.impl.data.BukkitConfigDataStore;
+import org.bukkit.command.CommandSender;
 
-public class CoreModule extends WaterModule {
+public class ReloadSubcommand implements Subcommand {
 
-	private final Set<Subcommand> commands = Set.of(new VersionSubcommand(), new ReloadSubcommand());
-
-	public CoreModule() {
+	// TODO change this
+	@Override
+	public String getName() {
+		return "watercore-reload";
 	}
 
 	@Override
-	public @NotNull String getName() {
-		return "core";
+	public String getDescription() {
+		return "Reloads the plugin";
 	}
 
 	@Override
-	public @NotNull SemanticVersion getVersion() {
-		return WaterCore.getVersion();
+	public String getUsage() {
+		return "null";
 	}
 
 	@Override
-	public @NotNull Set<Subcommand> getCommands() {
-		return commands;
+	public String getPermission() {
+		return "watercore.command.reload";
 	}
 
+	// TODO make this actually reload modules
 	@Override
-	public void onEnable() {
-
+	public boolean execute(CommandSender sender, CommandSender target, String[] args) {
+		sender.sendMessage("Reloading... Note this command is a work-in-progress. Not everything is reloaded.");
+		if (WaterCore.getConfig() instanceof BukkitConfigDataStore) {
+			((BukkitConfigDataStore) WaterCore.getConfig()).reload();
+		}
+		return true;
 	}
 }

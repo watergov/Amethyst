@@ -19,7 +19,10 @@
 package me.lucyy.watercore.api.module;
 
 import me.lucyy.watercore.api.exception.ModuleInitException;
+import org.bukkit.event.Listener;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.io.File;
 import java.util.Collection;
 
 /**
@@ -54,4 +57,26 @@ public interface ModuleManager {
 	 * @throws ModuleInitException if an exception is thrown when the module is instantiated or enabled
 	 */
 	void loadModule(Class<? extends WaterModule> clazz) throws ModuleInitException;
+
+	/**
+	 * Loads from a file, instantiating any modules it finds.
+	 *
+	 * @param file the file to read
+	 */
+	void loadModule(@NotNull File file);
+
+	/**
+	 * Registers an event listener for a module.
+	 *
+	 * @param module the module to associate the listener with
+	 * @param listener the listener to register
+	 */
+	void registerListener(WaterModule module, Listener listener);
+
+	/**
+	 * Unloads a module, deregistering its commands and listeners.
+	 *
+	 * @param module the module to unload
+	 */
+	void unloadModule(WaterModule module);
 }

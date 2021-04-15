@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public class MemoryDataStore implements DataStore {
+
 	private final HashMap<DataKey<? extends Serializable>, Serializable> storeMap = new HashMap<>();
 
 	@Override
@@ -36,5 +37,12 @@ public class MemoryDataStore implements DataStore {
 	@Override
 	public <T extends Serializable> void setValue(DataKey<T> key, T value) {
 		storeMap.put(key, value);
+	}
+
+	@Override
+	public <T extends Serializable> void setDefaultValue(DataKey<T> key, T value) {
+		if (!storeMap.containsKey(key)) {
+			storeMap.put(key, value);
+		}
 	}
 }

@@ -16,41 +16,30 @@
  * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.lucyy.watercore.modules.core;
-
 import me.lucyy.common.command.Subcommand;
-import me.lucyy.watercore.api.WaterCore;
 import me.lucyy.watercore.api.module.WaterModule;
 import me.lucyy.watercore.api.version.SemanticVersion;
-import me.lucyy.watercore.modules.core.command.ReloadSubcommand;
-import me.lucyy.watercore.modules.core.command.VersionSubcommand;
 import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
-public class CoreModule extends WaterModule {
-
-	private final Set<Subcommand> commands = Set.of(new VersionSubcommand(), new ReloadSubcommand());
-
-	public CoreModule() {
-	}
+/**
+ * A very basic example module.
+ */
+public class HelloWorldModule extends WaterModule {
+	private final Set<Subcommand> commands = Set.of(new HelloWorldCommand());
 
 	@Override
 	public @NotNull String getName() {
-		return "core";
+		return "helloworld";
 	}
 
 	@Override
 	public @NotNull SemanticVersion getVersion() {
-		return WaterCore.getVersion();
+		return SemanticVersion.fromString("1.0.0-SNAPSHOT");
 	}
 
 	@Override
 	public @NotNull Set<Subcommand> getCommands() {
 		return commands;
-	}
-
-	@Override
-	public void onEnable() {
-
 	}
 }

@@ -21,13 +21,14 @@ package me.lucyy.watercore.api.module;
 import me.lucyy.common.command.Subcommand;
 import java.util.Set;
 import me.lucyy.watercore.api.version.SemanticVersion;
-import org.bukkit.event.Listener;
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A module.
  */
-public abstract class WaterModule implements Listener {
+public abstract class WaterModule {
 
 	/**
 	 * Gets the name of this module.
@@ -58,5 +59,17 @@ public abstract class WaterModule implements Listener {
 	 * Called when this module is disabled.
 	 */
 	public void onDisable() {
+	}
+
+	/**
+	 * Parses a placeholder string to a component.
+	 *
+	 * @param in the stripped placeholder to parse. For example, the full placeholder %watercore_core_displayname% will
+	 *           be provided as "displayname".
+	 * @return a component containing the parsed placeholder, or null if this placeholder is invalid
+	 */
+	@Nullable
+	public Component parsePlaceholder(String in) {
+		return null;
 	}
 }

@@ -12,6 +12,7 @@
     <modules>
         <module>watercore-api</module>
         <module>watercore-base</module>
+        <module>watercore-helloworld</module>
     </modules>
 
     <build>

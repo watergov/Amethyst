@@ -119,7 +119,6 @@ public class BukkitModuleManager implements ModuleManager {
 						loadModule(loaded.asSubclass(WaterModule.class));
 					}
 				} catch (final NoClassDefFoundError ignored) {
-					// fixme - do we need to log this?
 					plugin.getLogger().warning("Failed to load class '" + className + "'");
 				}
 			}

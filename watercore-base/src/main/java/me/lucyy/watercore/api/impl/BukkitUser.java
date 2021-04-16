@@ -18,19 +18,45 @@
 
 package me.lucyy.watercore.api.impl;
 
+import me.lucyy.watercore.api.WaterCore;
+import me.lucyy.watercore.api.data.DataKey;
 import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
+import java.util.UUID;
 
 public class BukkitUser implements WaterCoreUser {
-	
+	private final UUID uuid;
+
+	private static final DataKey<String> displayNameFormat =
+			new DataKey<>("core", "displayNameFormat", String.class);
+
+	static {
+		WaterCore.getConfig().setDefaultValue(displayNameFormat, "%core_username%");
+	}
+
+	public BukkitUser(UUID uuid) {
+		this.uuid = uuid;
+	}
+
 	@Override
 	public Component getDisplayName() {
-		return null;
+		return WaterCore.parsePlaceholders(WaterCore.getConfig().getValue(displayNameFormat), this);
 	}
 
 	@Override
 	public DataStore getDataStore() {
 		return null;
+	}
+
+	@Override
+	public UUID getUuid() {
+		return uuid;
+	}
+
+	@Override
+	public String getUsername() {
+		return Bukkit.getOfflinePlayer(uuid).getName();
 	}
 }

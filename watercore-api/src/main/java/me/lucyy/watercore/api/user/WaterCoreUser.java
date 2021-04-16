@@ -20,6 +20,7 @@ package me.lucyy.watercore.api.user;
 
 import me.lucyy.watercore.api.data.DataStore;
 import net.kyori.adventure.text.Component;
+import java.util.UUID;
 
 public interface WaterCoreUser {
 
@@ -39,4 +40,14 @@ public interface WaterCoreUser {
 	 * @return the user's global data store
 	 */
 	DataStore getDataStore();
+
+	/**
+	 * Gets the user's true username.
+	 */
+	String getUsername();
+
+	/**
+	 * Gets the user's unique ID depending on the server's authentication method.
+	 */
+	UUID getUuid();
 }

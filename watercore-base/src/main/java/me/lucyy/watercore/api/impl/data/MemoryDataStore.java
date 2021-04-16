@@ -23,10 +23,11 @@ import me.lucyy.watercore.api.data.DataKey;
 import org.jetbrains.annotations.Nullable;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MemoryDataStore implements DataStore {
 
-	private final HashMap<DataKey<? extends Serializable>, Serializable> storeMap = new HashMap<>();
+	private final Map<DataKey<? extends Serializable>, Serializable> storeMap = new HashMap<>();
 
 	@Override
 	public <T extends Serializable> @Nullable T getValue(DataKey<T> key) {

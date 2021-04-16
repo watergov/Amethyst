@@ -19,16 +19,21 @@
 package me.lucyy.watercore.api.impl;
 
 import me.lucyy.common.command.FormatProvider;
+import me.lucyy.watercore.api.WaterCore;
 import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.impl.data.BukkitConfigDataStore;
 import me.lucyy.watercore.api.module.ModuleManager;
+import me.lucyy.watercore.api.module.WaterModule;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
 import me.lucyy.watercore.core.WaterCorePlugin;
 import me.lucyy.watercore.core.WaterCoreVersion;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.lang.reflect.Field;
@@ -81,7 +86,6 @@ public class WaterCoreImpl implements WaterCoreProvider {
 		return WaterCoreVersion.VERSION;
 	}
 
-	// TODO
 	@Override
 	public FormatProvider getFormatProvider() {
 		return format;
@@ -95,5 +99,39 @@ public class WaterCoreImpl implements WaterCoreProvider {
 	@Override
 	public DataStore getDataStore() {
 		return dataStore;
+	}
+
+	@Nullable
+	private Component parsePlaceholder(final String placeholder, @Nullable final WaterCoreUser user) {
+		final int idx = placeholder.indexOf("_");
+		if (idx == -1) {
+			return null;
+		}
+		final String moduleName = placeholder.substring(0, idx);
+		final WaterModule module = WaterCore.getModuleManager().getModule(moduleName);
+		if (module == null) {
+			return null;
+		}
+		return module.parsePlaceholder(placeholder.substring(idx), user);
+	}
+
+	@Override
+	@Contract(pure = true)
+	public Component parsePlaceholders(@NotNull final String input, @Nullable final WaterCoreUser user) {
+		Component out = Component.empty();
+		final String[] parts = input.split("(?<!\\\\)%");
+		final int modulus = input.startsWith("%") ? 1 : 0;
+		for (int i = 0; i < parts.length; i++) {
+			final String part = parts[i].replace("\\%", "%");
+			if (i % 2 == modulus) {
+				Component parsed = parsePlaceholder(part, user);
+				if (parsed != null) {
+					out = out.append(parsed);
+					continue;
+				}
+			}
+			out = out.append(Component.text(part));
+		}
+		return out;
 	}
 }

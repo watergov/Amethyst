@@ -20,6 +20,7 @@ package me.lucyy.watercore.api.module;
 
 import me.lucyy.common.command.Subcommand;
 import java.util.Set;
+import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
@@ -64,12 +65,15 @@ public abstract class WaterModule {
 	/**
 	 * Parses a placeholder string to a component.
 	 *
-	 * @param in the stripped placeholder to parse. For example, the full placeholder %watercore_core_displayname% will
-	 *           be provided as "displayname".
-	 * @return a component containing the parsed placeholder, or null if this placeholder is invalid
+	 * @param in   the stripped placeholder to parse. For example, the full placeholder %watercore_core_displayname%
+	 *             will be provided as "displayname".
+	 * @param user a user for the placeholders to target. This parameter may be null if the placeholder requested is
+	 *             not player-specific.
+	 * @return a   component containing the parsed placeholder, or null if this placeholder is invalid or a
+	 *             player-specific placeholder has been requested when user is null
 	 */
 	@Nullable
-	public Component parsePlaceholder(String in) {
+	public Component parsePlaceholder(String in, @Nullable WaterCoreUser user) {
 		return null;
 	}
 }

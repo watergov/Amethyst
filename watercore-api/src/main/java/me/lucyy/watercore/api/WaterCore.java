@@ -23,6 +23,7 @@ import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
@@ -93,5 +94,17 @@ public class WaterCore {
 	 */
 	public static DataStore getDataStore() {
 		return instance.getDataStore();
+	}
+
+	/**
+	 * Parses a string containing WaterCore (not PlaceholderAPI) placeholders that will get parsed to components.
+	 * Any invalid placeholders will be ignored and included as-is.
+	 *
+	 * @param input the string to process
+	 * @param user a user for the placeholders to target, if not needed for the placeholder, then null
+	 * @return a Component, possibly containing extra data, including the parsed placeholders
+	 */
+	public static Component parsePlaceholders(String input, @Nullable WaterCoreUser user) {
+		return instance.parsePlaceholders(input, user);
 	}
 }

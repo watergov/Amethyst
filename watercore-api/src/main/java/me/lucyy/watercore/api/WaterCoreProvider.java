@@ -23,6 +23,7 @@ import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
@@ -67,4 +68,9 @@ public interface WaterCoreProvider {
 	 * @see WaterCore#getDataStore()
 	 */
 	DataStore getDataStore();
+
+	/**
+	 * @see WaterCore#parsePlaceholders(String, WaterCoreUser)
+	 */
+	Component parsePlaceholders(String input, WaterCoreUser user);
 }

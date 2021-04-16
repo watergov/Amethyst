@@ -28,7 +28,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.util.Objects;
 
-@SuppressWarnings("unused")
 public final class WaterCorePlugin extends JavaPlugin {
 
   public static MySqlHandler mysql = new MySqlHandler();
@@ -64,10 +63,6 @@ public final class WaterCorePlugin extends JavaPlugin {
 
   @Override
   public void onDisable() {
-    try {
-      mysql.close();
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-    }
+    mysql.close();
   }
 }

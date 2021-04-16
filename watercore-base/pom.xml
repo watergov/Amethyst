@@ -80,6 +80,10 @@
             <id>jdbc</id>
             <url>https://mvnrepository.com/artifact/org.clojure/java.jdbc/</url>
         </repository>
+        <repository>
+            <id>hikari</id>
+            <url>https://mvnrepository.com/artifact/com.zaxxer/HikariCP</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -100,6 +104,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.49</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>4.0.3</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,7 +1,7 @@
 package me.lucyy.watercore.core.mysql;
 
-import com.mysql.jdbc.Connection;
-import java.sql.DriverManager;
+import com.zaxxer.hikari.HikariDataSource;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,71 +12,107 @@ import org.bukkit.Bukkit;
  * @author Skippysunday
  * @version 1
  * <p>
- * This class handles a connection to an external MySQL database server. This is a raw connection,
- * so no parsing of the data is done.
+ * This class handles a connection to an external MySQL database server through the Hikari
+ * Connection Pool. This is a raw connection, so no parsing of the data is done.
  * @since 1.0.0-SNAPSHOT
  */
 public class MySqlHandler {
 
-  private Connection connection;
-
-  //For accessing main config file
-  private final WaterCorePlugin p = new WaterCorePlugin();
+  private HikariDataSource hikari;
 
   /**
-   * Simple constructors with no parameters. Data for connection such as username and password are
-   * taken from external configuration file
-   */
+   * Initializes a Hikari Connection Pool with the parameters passed in the config.yml
+   * */
   public MySqlHandler() {
+    final WaterCorePlugin w = new WaterCorePlugin();
+    if (w.getConfig().getBoolean("mysql.enabled")) {
+      hikari = new HikariDataSource();
+      hikari.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
+      hikari.addDataSourceProperty("user", w.getConfig().getString("mysql.username"));
+      hikari.addDataSourceProperty("password", w.getConfig().getString("mysql.password"));
+      hikari.addDataSourceProperty("port", w.getConfig().getString("mysql.port"));
+      hikari.addDataSourceProperty("databaseName", w.getConfig().getString("mysql.database"));
+      hikari.addDataSourceProperty("serverName", w.getConfig().getString("mysql.ip"));
+    } else {
+      Bukkit.getLogger().info("[WaterCore] MySQL is not enabled!");
+    }
+  }
 
-    String database = p.getConfig().getString("mysql.database");
-    String ip = p.getConfig().getString("mysql.ip");
-    String port = p.getConfig().getString("mysql.port");
-    String username = p.getConfig().getString("mysql.username");
-    String password = p.getConfig().getString("mysql.password");
+  /**
+   * @param statement MySQL statement to be executed
+   * Sends update statement to MySQL server
+   * */
+  public void sendUpdate(String statement) {
+    Connection connection = null;
+    PreparedStatement p = null;
 
     try {
-      if (p.getConfig().getBoolean("mysql.enabled")) {
-        Class.forName("com.mysql.jdbc.Driver");
-        connection = (Connection) DriverManager
-            .getConnection(String.format(
-                "jdbc:mysql://%s:%s/%s?useServerPrepStmts=false&rewriteBatchedStatements=true", ip,
-                port, database), username, password);
-      }
-    } catch (SQLException | ClassNotFoundException e) {
-      Bukkit.getLogger().info("Could not log into MySQL database. Verify login info!");
+      connection = hikari.getConnection();
+      p = connection.prepareStatement(statement);
+      p.executeUpdate();
+    } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      if (p != null) {
+        try {
+          p.close();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      }
+
+      if (connection != null) {
+        try {
+          connection.close();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      }
     }
   }
 
   /**
-   * @throws SQLException Closes connection to database. Called on plugin disable.
-   */
-  public void close() throws SQLException {
-    if (p.getConfig().getBoolean("mysql.enabled")) {
-      connection.close();
+   * @param statement MySQL statement to be executed
+   * @return ResultSet Returns resultset of data
+   * */
+  public ResultSet getInfo(String statement) {
+
+    Connection connection = null;
+    PreparedStatement p = null;
+
+    try {
+      connection = hikari.getConnection();
+      p = connection.prepareStatement(statement);
+      return p.executeQuery();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      if (p != null) {
+        try {
+          p.close();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      }
+
+      if (connection != null) {
+        try {
+          connection.close();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Closes hikari
+   * */
+  public void close() {
+    if (!hikari.isClosed()) {
+      hikari.close();
     }
   }
 
-  /**
-   * @param statement MySQL statement to be passed to the database
-   * @return ResultSet
-   * @throws SQLException Returns ResultSet of query passed in as String.
-   */
-  public ResultSet getInfo(String statement) throws SQLException {
-    PreparedStatement ps = connection.prepareStatement(statement);
-    return ps.executeQuery();
-  }
-
-  /**
-   * @param statement Statement to be passed to the database Sends update to external MySQL server,
-   *                  statement passed in as String.
-   * @throws SQLException Thrown when connection error occurrs, or when data cannot be sent
-   *                      properly
-   */
-  public void sendInfo(String statement) throws SQLException {
-    PreparedStatement ps = connection.prepareStatement(statement);
-    ps.executeUpdate();
-  }
 }
-

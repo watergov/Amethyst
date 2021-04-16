@@ -18,9 +18,11 @@
 
 package me.lucyy.watercore.core;
 
+import java.sql.SQLException;
 import me.lucyy.common.format.Platform;
 import me.lucyy.watercore.api.WaterCore;
 import me.lucyy.watercore.api.impl.WaterCoreImpl;
+import me.lucyy.watercore.core.mysql.MySqlHandler;
 import me.lucyy.watercore.modules.core.CoreModule;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
@@ -28,6 +30,8 @@ import java.util.Objects;
 
 @SuppressWarnings("unused")
 public final class WaterCorePlugin extends JavaPlugin {
+
+	public static MySqlHandler mysql = new MySqlHandler();
 
 	@Override
 	public void onEnable() {
@@ -60,5 +64,10 @@ public final class WaterCorePlugin extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		try {
+			mysql.close();
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
 	}
 }

@@ -20,6 +20,7 @@ package me.lucyy.watercore.api.impl.data;
 
 import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.data.DataKey;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -31,42 +32,37 @@ import java.io.Serializable;
 /**
  * A data store tied to a YAML file.
  */
-public class BukkitConfigDataStore extends AbstractBukkitDataStore {
-	private final File baseFile;
+public abstract class AbstractBukkitDataStore implements DataStore {
+	protected final ConfigurationSection base;
 
 	/**
-	 * @param file the YML file to use as a base
+	 * @param base the ConfigurationSection to use as a base
 	 */
-	public BukkitConfigDataStore(File file) {
-		this(YamlConfiguration.loadConfiguration(file), file);
+	protected AbstractBukkitDataStore(ConfigurationSection base) {
+		this.base = base;
 	}
 
-	private BukkitConfigDataStore(YamlConfiguration cfg, File file) {
-		super(cfg);
-		cfg.options().copyDefaults(true);
-		baseFile = file;
+	protected abstract void save();
+
+	@Override
+	public <T extends Serializable> @Nullable T getValue(DataKey<T> key) {
+		return base.getObject(key.toString(), key.getClazz());
 	}
 
 	@Override
-	protected void save() {
-		try {
-			((YamlConfiguration) base).save(baseFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public <T extends Serializable> void setValue(DataKey<T> key, T value) {
+		base.set(key.toString(), value);
+		save();
 	}
-
 
 	@Override
-	public void reload() {
-		try {
-			((YamlConfiguration) base).load(baseFile);
-		} catch (IOException | InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
+	public <T extends Serializable> void setDefaultValue(DataKey<T> key, T value) {
+		base.addDefault(key.toString(), value);
+		save();
 	}
 
-	public BukkitSectionDataStore getSection(String name) {
-		return new BukkitSectionDataStore(base.getConfigurationSection(name), this);
-	}
+	/**
+	 * Reloads the config from the file.
+	 */
+	public abstract void reload();
 }

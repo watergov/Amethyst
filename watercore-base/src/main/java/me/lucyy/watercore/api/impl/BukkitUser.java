@@ -18,9 +18,11 @@
 
 package me.lucyy.watercore.api.impl;
 
+import me.lucyy.common.util.UuidUtils;
 import me.lucyy.watercore.api.WaterCore;
 import me.lucyy.watercore.api.data.DataKey;
 import me.lucyy.watercore.api.data.DataStore;
+import me.lucyy.watercore.api.impl.data.BukkitConfigDataStore;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -33,7 +35,7 @@ public class BukkitUser implements WaterCoreUser {
 			new DataKey<>("core", "displayNameFormat", String.class);
 
 	static {
-		WaterCore.getConfig().setDefaultValue(displayNameFormat, "%core_username%");
+		WaterCore.getConfig().setDefaultValue(displayNameFormat, "%core_displayname%");
 	}
 
 	public BukkitUser(UUID uuid) {
@@ -47,7 +49,11 @@ public class BukkitUser implements WaterCoreUser {
 
 	@Override
 	public DataStore getDataStore() {
-		return null;
+		DataStore store = WaterCore.getDataStore();
+		if (store instanceof BukkitConfigDataStore) {
+			return ((BukkitConfigDataStore) store).getSection("player." + UuidUtils.toString(getUuid()));
+		}
+		return null; // todo - depends on mysql
 	}
 
 	@Override

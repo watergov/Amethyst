@@ -30,39 +30,39 @@ import java.util.Objects;
 
 public final class WaterCorePlugin extends JavaPlugin {
 
-  public static MySqlHandler mysql = new MySqlHandler();
+	public static MySqlHandler mysql = new MySqlHandler();
 
-  @Override
-  public void onEnable() {
-    try {
-      new Platform(this);
-      WaterCoreImpl waterCore = new WaterCoreImpl(this);
-      WaterCore.setProvider(waterCore);
-      waterCore.getModuleManager().loadModule(CoreModule.class); // TODO remove this
-      // scan for files in the modules dir
-      File modulesDir = new File(getDataFolder(), "modules");
-      if (modulesDir.isFile()) {
-        getLogger().severe("Modules directory was actually a file!");
-        return;
-      }
-      modulesDir.mkdirs();
+	@Override
+	public void onEnable() {
+		try {
+			new Platform(this);
+			WaterCoreImpl waterCore = new WaterCoreImpl(this);
+			WaterCore.setProvider(waterCore);
+			waterCore.getModuleManager().loadModule(CoreModule.class); // TODO remove this
+			// scan for files in the modules dir
+			File modulesDir = new File(getDataFolder(), "modules");
+			if (modulesDir.isFile()) {
+				getLogger().severe("Modules directory was actually a file!");
+				return;
+			}
+			modulesDir.mkdirs();
 
-      // this should not return null due to the directory check above
-      for (File module : Objects.requireNonNull(modulesDir.listFiles())) {
-        waterCore.getModuleManager().loadModule(module);
-      }
+			// this should not return null due to the directory check above
+			for (File module : Objects.requireNonNull(modulesDir.listFiles())) {
+				waterCore.getModuleManager().loadModule(module);
+			}
 
-    } catch (NoSuchFieldException | IllegalAccessException e) {
-      e.printStackTrace();
-      getPluginLoader().disablePlugin(this);
-    } catch (ClassNotFoundException e) {
-      getPluginLoader().disablePlugin(this);
-    }
-    saveConfig();
-  }
+		} catch (NoSuchFieldException | IllegalAccessException e) {
+			e.printStackTrace();
+			getPluginLoader().disablePlugin(this);
+		} catch (ClassNotFoundException e) {
+			getPluginLoader().disablePlugin(this);
+		}
+		saveConfig();
+	}
 
-  @Override
-  public void onDisable() {
-    mysql.close();
-  }
+	@Override
+	public void onDisable() {
+		mysql.close();
+	}
 }

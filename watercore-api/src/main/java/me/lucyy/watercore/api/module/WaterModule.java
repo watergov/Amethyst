@@ -28,11 +28,16 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * A module.
+ *
+ * @author lucy
+ * @since 1.0.0
  */
 public abstract class WaterModule {
 
 	/**
 	 * Gets the name of this module.
+	 *
+	 * @since 1.0.0
 	 */
 	@NotNull
 	public abstract String getName();
@@ -40,24 +45,32 @@ public abstract class WaterModule {
 	/**
 	 * Gets the version of this module. The major and minor version should match the core that this plugin is built
 	 * against.
+	 *
+	 * @since 1.0.0
 	 */
 	@NotNull
 	public abstract SemanticVersion getVersion();
 
 	/**
 	 * Gets a set of commands that this plugin exposes. These commands will be exposed as root commands.
+	 *
+	 * @since 1.0.0
 	 */
 	@NotNull
 	public abstract Set<Subcommand> getCommands();
 
 	/**
 	 * Called when this module is enabled.
+	 *
+	 * @since 1.0.0
 	 */
 	public void onEnable() {
 	}
 
 	/**
 	 * Called when this module is disabled.
+	 *
+	 * @since 1.0.0
 	 */
 	public void onDisable() {
 	}
@@ -71,6 +84,7 @@ public abstract class WaterModule {
 	 *             not player-specific.
 	 * @return a   component containing the parsed placeholder, or null if this placeholder is invalid or a
 	 *             player-specific placeholder has been requested when user is null
+	 * @since 1.0.0
 	 */
 	@Nullable
 	public Component parsePlaceholder(String in, @Nullable WaterCoreUser user) {

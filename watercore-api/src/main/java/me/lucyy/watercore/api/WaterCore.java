@@ -27,6 +27,12 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
+/**
+ * Main entrypoint for the WaterCore API.
+ *
+ * @author lucy
+ * @since 1.0.0
+ */
 public class WaterCore {
 	private static WaterCoreProvider instance;
 
@@ -38,6 +44,7 @@ public class WaterCore {
 	 * Gets a user from their cached username, or null if this user is not cached.
 	 *
 	 * @return a user with the given name
+	 * @since 1.0.0
 	 */
 	@Nullable
 	public static WaterCoreUser userFromName(final String name) {
@@ -48,6 +55,7 @@ public class WaterCore {
 	 * Gets a user from their UUID, or null if this user is not cached.
 	 *
 	 * @return a user with the given UUID
+	 * @since 1.0.0
 	 */
 	@Nullable
 	public static WaterCoreUser userFromUuid(final UUID uuid) {
@@ -56,6 +64,8 @@ public class WaterCore {
 
 	/**
 	 * Gets the module manager.
+	 *
+	 * @since 1.0.0
 	 */
 	public static ModuleManager getModuleManager() {
 		return instance.getModuleManager();
@@ -63,6 +73,8 @@ public class WaterCore {
 
 	/**
 	 * Gets the core's version.
+	 *
+	 * @since 1.0.0
 	 */
 	public static SemanticVersion getVersion() {
 		return instance.getVersion();
@@ -70,6 +82,8 @@ public class WaterCore {
 
 	/**
 	 * Gets the plugin's format provider.
+	 *
+	 * @since 1.0.0
 	 */
 	public static FormatProvider getFormatProvider() {
 		return instance.getFormatProvider();
@@ -80,6 +94,7 @@ public class WaterCore {
 	 * Gets a global data store that is tied to this server's config file.
 	 *
 	 * @return the server's config file
+	 * @since 1.0.0
 	 */
 	public static DataStore getConfig() {
 		return instance.getConfig();
@@ -91,6 +106,7 @@ public class WaterCore {
 	 * use {@link WaterCoreUser#getDataStore()} for this purpose.
 	 *
 	 * @return a global data store
+	 * @since 1.0.0
 	 */
 	public static DataStore getDataStore() {
 		return instance.getDataStore();
@@ -103,6 +119,7 @@ public class WaterCore {
 	 * @param input the string to process
 	 * @param user a user for the placeholders to target, if not needed for the placeholder, then null
 	 * @return a Component, possibly containing extra data, including the parsed placeholders
+	 * @since 1.0.0
 	 */
 	public static Component parsePlaceholders(String input, @Nullable WaterCoreUser user) {
 		return instance.parsePlaceholders(input, user);

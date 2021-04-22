@@ -23,6 +23,9 @@ import java.io.Serializable;
 
 /**
  * A persistent key-value store.
+ *
+ * @author lucy
+ * @since 1.0.0
  */
 public interface DataStore {
 
@@ -31,6 +34,7 @@ public interface DataStore {
 	 *
 	 * @param key the key to retrieve the value of
 	 * @return the value of that key, or null if no value has been set
+	 * @since 1.0.0
 	 */
 	@Nullable <T extends Serializable> T getValue(DataKey<T> key);
 
@@ -39,6 +43,7 @@ public interface DataStore {
 	 *
 	 * @param key   the key to set the value of
 	 * @param value the value to set, or null to clear it
+	 * @since 1.0.0
 	 */
 	<T extends Serializable> void setValue(DataKey<T> key, T value);
 
@@ -47,6 +52,7 @@ public interface DataStore {
 	 *
 	 * @param key	the key to set the default for
 	 * @param value the default value to set
+	 * @since 1.0.0
 	 */
 	<T extends Serializable> void setDefaultValue(DataKey<T> key, T value);
 }

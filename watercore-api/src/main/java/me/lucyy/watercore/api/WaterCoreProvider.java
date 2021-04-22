@@ -31,6 +31,8 @@ import java.util.UUID;
  * Implementation for WaterCore static class.
  *
  * @see WaterCore
+ * @author lucy
+ * @since 1.0.0
  */
 public interface WaterCoreProvider {
 

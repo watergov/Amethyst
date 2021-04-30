@@ -19,6 +19,7 @@
 package me.lucyy.watercore.api.impl;
 
 import me.lucyy.common.command.Subcommand;
+import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.exception.ModuleInitException;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.module.WaterModule;
@@ -48,10 +49,12 @@ public class BukkitModuleManager implements ModuleManager {
 	private final Map<WaterModule, List<Listener>> listeners = new HashMap<>();
 	private final CommandMap commandMap;
 	private final WaterCorePlugin plugin;
+	private final WaterCoreProvider provider;
 
-	public BukkitModuleManager(@NotNull CommandMap commandMap, WaterCorePlugin plugin) {
+	public BukkitModuleManager(@NotNull CommandMap commandMap, WaterCorePlugin plugin, WaterCoreProvider provider) {
 		this.commandMap = commandMap;
 		this.plugin = plugin;
+		this.provider = provider;
 	}
 
 	@Override
@@ -75,8 +78,7 @@ public class BukkitModuleManager implements ModuleManager {
 	@Override
 	public void loadModule(Class<? extends WaterModule> clazz) throws ModuleInitException {
 		try {
-			WaterModule module = clazz.getDeclaredConstructor().newInstance();
-			module.onEnable();
+			WaterModule module = clazz.getConstructor(WaterCoreProvider.class).newInstance(provider);
 			for (Subcommand subcmd : module.getCommands()) {
 				commandMap.register("watercore." + module.getName(), new SubcommandWrapper(subcmd));
 			}
@@ -140,7 +142,7 @@ public class BukkitModuleManager implements ModuleManager {
 
 	@Override
 	public void unloadModule(WaterModule module) {
-		module.onDisable();
+		module.close();
 		List<Listener> moduleListeners = listeners.get(module);
 		if (moduleListeners != null) {
 			for (Listener list : moduleListeners) {

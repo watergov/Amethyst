@@ -19,11 +19,17 @@
 package me.lucyy.watercore.modules.core.command;
 
 import me.lucyy.common.command.Subcommand;
-import me.lucyy.watercore.api.WaterCore;
+import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.impl.data.BukkitConfigDataStore;
 import org.bukkit.command.CommandSender;
 
 public class ReloadSubcommand implements Subcommand {
+
+	private WaterCoreProvider provider;
+
+	public ReloadSubcommand(WaterCoreProvider provider) {
+		this.provider = provider;
+	}
 
 	// TODO change this
 	@Override
@@ -50,8 +56,8 @@ public class ReloadSubcommand implements Subcommand {
 	@Override
 	public boolean execute(CommandSender sender, CommandSender target, String[] args) {
 		sender.sendMessage("Reloading... Note this command is a work-in-progress. Not everything is reloaded.");
-		if (WaterCore.getConfig() instanceof BukkitConfigDataStore) {
-			((BukkitConfigDataStore) WaterCore.getConfig()).reload();
+		if (provider.getConfig() instanceof BukkitConfigDataStore) {
+			((BukkitConfigDataStore) provider.getConfig()).reload();
 		}
 		return true;
 	}

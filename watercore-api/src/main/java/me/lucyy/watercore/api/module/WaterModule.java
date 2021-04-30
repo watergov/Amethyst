@@ -28,8 +28,10 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * A module.
+ * Instances of this class <b>must</b> provide a constructor with a single argument of type WaterCoreProvider.
+ * You should store this provided WaterCoreProvider locally.
  */
-public abstract class WaterModule {
+public abstract class WaterModule implements AutoCloseable {
 
 	/**
 	 * Gets the name of this module.
@@ -51,18 +53,6 @@ public abstract class WaterModule {
 	public abstract Set<Subcommand> getCommands();
 
 	/**
-	 * Called when this module is enabled.
-	 */
-	public void onEnable() {
-	}
-
-	/**
-	 * Called when this module is disabled.
-	 */
-	public void onDisable() {
-	}
-
-	/**
 	 * Parses a placeholder string to a component.
 	 *
 	 * @param in   the stripped placeholder to parse. For example, the full placeholder %watercore_core_displayname%
@@ -75,5 +65,12 @@ public abstract class WaterModule {
 	@Nullable
 	public Component parsePlaceholder(String in, @Nullable WaterCoreUser user) {
 		return null;
+	}
+
+	/**
+	 * Called when this module is disposed.
+	 */
+	@Override
+	public void close() {
 	}
 }

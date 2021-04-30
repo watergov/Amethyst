@@ -19,7 +19,7 @@
 package me.lucyy.watercore.api.impl;
 
 import me.lucyy.common.util.UuidUtils;
-import me.lucyy.watercore.api.WaterCore;
+import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.data.DataKey;
 import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.impl.data.BukkitConfigDataStore;
@@ -30,26 +30,23 @@ import java.util.UUID;
 
 public class BukkitUser implements WaterCoreUser {
 	private final UUID uuid;
+	private final WaterCoreProvider provider;
+	private final DataKey<String> nameFormatKey;
 
-	private static final DataKey<String> displayNameFormat =
-			new DataKey<>("core", "displayNameFormat", String.class);
-
-	static {
-		WaterCore.getConfig().setDefaultValue(displayNameFormat, "%core_displayname%");
-	}
-
-	public BukkitUser(UUID uuid) {
+	public BukkitUser(UUID uuid, WaterCoreProvider provider, DataKey<String> nameFormatKey) {
 		this.uuid = uuid;
+		this.provider = provider;
+		this.nameFormatKey = nameFormatKey;
 	}
 
 	@Override
 	public Component getDisplayName() {
-		return WaterCore.parsePlaceholders(WaterCore.getConfig().getValue(displayNameFormat), this);
+		return provider.parsePlaceholders(provider.getConfig().getValue(nameFormatKey), this);
 	}
 
 	@Override
 	public DataStore getDataStore() {
-		DataStore store = WaterCore.getDataStore();
+		DataStore store = provider.getDataStore();
 		if (store instanceof BukkitConfigDataStore) {
 			return ((BukkitConfigDataStore) store).getSection("player." + UuidUtils.toString(getUuid()));
 		}

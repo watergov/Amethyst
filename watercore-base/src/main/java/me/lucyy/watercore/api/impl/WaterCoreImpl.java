@@ -19,7 +19,6 @@
 package me.lucyy.watercore.api.impl;
 
 import me.lucyy.common.command.FormatProvider;
-import me.lucyy.watercore.api.WaterCore;
 import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.impl.data.BukkitConfigDataStore;
@@ -60,7 +59,7 @@ public class WaterCoreImpl implements WaterCoreProvider {
 				new File(plugin.getDataFolder(), "datastore.yml"));
 
 
-		moduleManager = new BukkitModuleManager(cmdMap, plugin);
+		moduleManager = new BukkitModuleManager(cmdMap, plugin, this);
 		format = new ConfigBoundFormatProvider(config);
 	}
 
@@ -108,7 +107,7 @@ public class WaterCoreImpl implements WaterCoreProvider {
 			return null;
 		}
 		final String moduleName = placeholder.substring(0, idx);
-		final WaterModule module = WaterCore.getModuleManager().getModule(moduleName);
+		final WaterModule module = moduleManager.getModule(moduleName);
 		if (module == null) {
 			return null;
 		}

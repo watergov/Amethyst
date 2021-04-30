@@ -27,50 +27,61 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
-/**
- * Implementation for WaterCore static class.
- *
- * @see WaterCore
- */
 public interface WaterCoreProvider {
+	/**
+	 * Gets a user from their cached username, or null if this user is not cached.
+	 *
+	 * @return a user with the given name
+	 */
+	@Nullable
+	WaterCoreUser userFromName(final String name);
 
 	/**
-	 * @see WaterCore#getModuleManager()
+	 * Gets a user from their UUID, or null if this user is not cached.
+	 *
+	 * @return a user with the given UUID
+	 */
+	WaterCoreUser userFromUuid(final UUID uuid);
+
+	/**
+	 * Gets the module manager.
 	 */
 	ModuleManager getModuleManager();
 
 	/**
-	 * @see WaterCore#userFromName(String)
-	 */
-	@Nullable WaterCoreUser userFromName(String name);
-
-	/**
-	 * @see WaterCore#userFromUuid(UUID)
-	 */
-	@Nullable WaterCoreUser userFromUuid(UUID uuid);
-
-	/**
-	 * @see WaterCore#getVersion()
+	 * Gets the core's version.
 	 */
 	SemanticVersion getVersion();
 
 	/**
-	 * @see WaterCore#getFormatProvider()
+	 * Gets the plugin's format provider.
 	 */
 	FormatProvider getFormatProvider();
 
+
 	/**
-	 * @see WaterCore#getConfig()
+	 * Gets a global data store that is tied to this server's config file.
+	 *
+	 * @return the server's config file
 	 */
 	DataStore getConfig();
 
 	/**
-	 * @see WaterCore#getDataStore()
+	 * Gets a global data store that will be shared across any servers running on the same database. This store should
+	 * be used to store persistent data, unrelated to config. Data should not be specific to any particular player -
+	 * use {@link WaterCoreUser#getDataStore()} for this purpose.
+	 *
+	 * @return a global data store
 	 */
 	DataStore getDataStore();
 
 	/**
-	 * @see WaterCore#parsePlaceholders(String, WaterCoreUser)
+	 * Parses a string containing WaterCore (not PlaceholderAPI) placeholders that will get parsed to components.
+	 * Any invalid placeholders will be ignored and included as-is.
+	 *
+	 * @param input the string to process
+	 * @param user  a user for the placeholders to target, if not needed for the placeholder, then null
+	 * @return a Component, possibly containing extra data, including the parsed placeholders
 	 */
-	Component parsePlaceholders(String input, WaterCoreUser user);
+	Component parsePlaceholders(String input, @Nullable WaterCoreUser user);
 }

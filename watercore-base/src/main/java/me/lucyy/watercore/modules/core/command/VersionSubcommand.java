@@ -18,18 +18,25 @@
 
 package me.lucyy.watercore.modules.core.command;
 
+import me.lucyy.common.command.FormatProvider;
 import me.lucyy.common.command.Subcommand;
 import me.lucyy.common.format.Platform;
-import me.lucyy.watercore.api.WaterCore;
+import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.module.WaterModule;
 import me.lucyy.watercore.core.WaterCoreVersion;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 
 import static me.lucyy.common.format.TextFormatter.formatTitle;
-import static me.lucyy.watercore.api.WaterCore.getFormatProvider;
 
 public class VersionSubcommand implements Subcommand {
+	
+	private final WaterCoreProvider provider;
+
+	public VersionSubcommand(WaterCoreProvider provider) {
+		this.provider = provider;
+	}
+
 	@Override
 	public String getName() {
 		return "watercore";
@@ -54,19 +61,19 @@ public class VersionSubcommand implements Subcommand {
 	public boolean execute(CommandSender sender, CommandSender target, String[] args) {
 		Component nl = Component.newline();
 		Component out = Component.empty()
-				.append(formatTitle("WaterCore", getFormatProvider()).append(nl));
+				.append(formatTitle("WaterCore", provider.getFormatProvider()).append(nl));
 
-		Component coreVersion = nl.append(getFormatProvider().formatMain("WaterCore version "))
-				.append(getFormatProvider().formatAccent(WaterCoreVersion.VERSION.toString()));
+		Component coreVersion = nl.append(provider.getFormatProvider().formatMain("WaterCore version "))
+				.append(provider.getFormatProvider().formatAccent(WaterCoreVersion.VERSION.toString()));
 
 		out = out.append(coreVersion).append(nl);
 
-		for (WaterModule module : WaterCore.getModuleManager().getLoadedModules()) {
-			Component moduleVersion = getFormatProvider().formatMain(module.getName() + " ")
-					.append(getFormatProvider().formatAccent(module.getVersion().toString()));
+		for (WaterModule module : provider.getModuleManager().getLoadedModules()) {
+			Component moduleVersion = provider.getFormatProvider().formatMain(module.getName() + " ")
+					.append(provider.getFormatProvider().formatAccent(module.getVersion().toString()));
 			out = out.append(moduleVersion).append(nl);
 		}
-		out = out.append(nl).append(formatTitle("*", getFormatProvider()));
+		out = out.append(nl).append(formatTitle("*", provider.getFormatProvider()));
 		Platform.send(sender, out);
 		return true;
 	}

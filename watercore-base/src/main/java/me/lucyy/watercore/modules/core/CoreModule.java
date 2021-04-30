@@ -20,7 +20,7 @@ package me.lucyy.watercore.modules.core;
 
 import me.lucyy.common.command.Subcommand;
 import me.lucyy.common.util.UuidUtils;
-import me.lucyy.watercore.api.WaterCore;
+import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.module.WaterModule;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
@@ -34,10 +34,8 @@ import java.util.Set;
 
 public class CoreModule extends WaterModule {
 
-	private final Set<Subcommand> commands = Set.of(new VersionSubcommand(), new ReloadSubcommand());
-
-	public CoreModule() {
-	}
+	private final Set<Subcommand> commands;
+	private final WaterCoreProvider provider;
 
 	@Override
 	public @NotNull String getName() {
@@ -46,7 +44,7 @@ public class CoreModule extends WaterModule {
 
 	@Override
 	public @NotNull SemanticVersion getVersion() {
-		return WaterCore.getVersion();
+		return provider.getVersion();
 	}
 
 	@Override
@@ -54,9 +52,9 @@ public class CoreModule extends WaterModule {
 		return commands;
 	}
 
-	@Override
-	public void onEnable() {
-
+	public CoreModule(WaterCoreProvider provider) {
+		this.provider = provider;
+		commands = Set.of(new VersionSubcommand(provider), new ReloadSubcommand(provider));
 	}
 
 	@Override

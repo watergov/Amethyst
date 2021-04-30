@@ -30,11 +30,16 @@ import org.jetbrains.annotations.Nullable;
  * A module.
  * Instances of this class <b>must</b> provide a constructor with a single argument of type WaterCoreProvider.
  * You should store this provided WaterCoreProvider locally.
+ * @author lucy
+ * @since 1.0.0
+ *
  */
 public abstract class WaterModule implements AutoCloseable {
 
 	/**
 	 * Gets the name of this module.
+	 *
+	 * @since 1.0.0
 	 */
 	@NotNull
 	public abstract String getName();
@@ -42,12 +47,16 @@ public abstract class WaterModule implements AutoCloseable {
 	/**
 	 * Gets the version of this module. The major and minor version should match the core that this plugin is built
 	 * against.
+	 *
+	 * @since 1.0.0
 	 */
 	@NotNull
 	public abstract SemanticVersion getVersion();
 
 	/**
 	 * Gets a set of commands that this plugin exposes. These commands will be exposed as root commands.
+	 *
+	 * @since 1.0.0
 	 */
 	@NotNull
 	public abstract Set<Subcommand> getCommands();
@@ -61,6 +70,7 @@ public abstract class WaterModule implements AutoCloseable {
 	 *             not player-specific.
 	 * @return a   component containing the parsed placeholder, or null if this placeholder is invalid or a
 	 *             player-specific placeholder has been requested when user is null
+	 * @since 1.0.0
 	 */
 	@Nullable
 	public Component parsePlaceholder(String in, @Nullable WaterCoreUser user) {

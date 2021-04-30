@@ -27,6 +27,13 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
+/**
+ * Implementation for WaterCore static class.
+ *
+ * @see WaterCore
+ * @author lucy
+ * @since 1.0.0
+ */
 public interface WaterCoreProvider {
 	/**
 	 * Gets a user from their cached username, or null if this user is not cached.
@@ -57,7 +64,6 @@ public interface WaterCoreProvider {
 	 * Gets the plugin's format provider.
 	 */
 	FormatProvider getFormatProvider();
-
 
 	/**
 	 * Gets a global data store that is tied to this server's config file.

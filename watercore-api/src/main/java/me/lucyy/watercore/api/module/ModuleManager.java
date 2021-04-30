@@ -27,6 +27,9 @@ import java.util.Collection;
 
 /**
  * Responsible for loading modules.
+ *
+ * @author lucy
+ * @since 1.0.0
  */
 public interface ModuleManager {
 	/**
@@ -34,6 +37,7 @@ public interface ModuleManager {
 	 *
 	 * @param clazz the module class to retrieve
 	 * @return the module instance, or null if it's not registered
+	 * @since 1.0.0
 	 */
 	<T extends WaterModule> @Nullable T getModule(Class<T> clazz);
 
@@ -42,11 +46,14 @@ public interface ModuleManager {
 	 *
 	 * @param name the name of the module to retrieve
 	 * @return the module instance, or null if it's not registered
+	 * @since 1.0.0
 	 */
 	@Nullable WaterModule getModule(String name);
 
 	/**
 	 * Gets all enabled modules.
+	 *
+	 * @since 1.0.0
 	 */
 	Collection<WaterModule> getLoadedModules();
 
@@ -55,6 +62,7 @@ public interface ModuleManager {
 	 *
 	 * @param clazz the class to instantiate
 	 * @throws ModuleInitException if an exception is thrown when the module is instantiated or enabled
+	 * @since 1.0.0
 	 */
 	void loadModule(Class<? extends WaterModule> clazz) throws ModuleInitException;
 
@@ -62,6 +70,7 @@ public interface ModuleManager {
 	 * Loads from a file, instantiating any modules it finds.
 	 *
 	 * @param file the file to read
+	 * @since 1.0.0
 	 */
 	void loadModule(@NotNull File file);
 
@@ -70,6 +79,7 @@ public interface ModuleManager {
 	 *
 	 * @param module the module to associate the listener with
 	 * @param listener the listener to register
+	 * @since 1.0.0
 	 */
 	void registerListener(WaterModule module, Listener listener);
 
@@ -77,6 +87,7 @@ public interface ModuleManager {
 	 * Unloads a module, deregistering its commands and listeners.
 	 *
 	 * @param module the module to unload
+	 * @since 1.0.0
 	 */
 	void unloadModule(WaterModule module);
 }

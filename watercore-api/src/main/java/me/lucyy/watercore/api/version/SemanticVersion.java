@@ -27,6 +27,8 @@ import java.util.regex.Pattern;
  * A semantic version.
  *
  * @see <a href="https://semver.org">https://semver.org</a>
+ * @author lucy
+ * @since 1.0.0
  */
 public class SemanticVersion implements Comparable<SemanticVersion> {
 	// this pattern is not 100% spec-compliant but it works
@@ -39,6 +41,8 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
 
 	/**
 	 * Gets the major version. This should be incremented when you make incompatible API changes.
+	 *
+	 * @since 1.0.0
 	 */
 	public int getMajor() {
 		return major;
@@ -46,6 +50,8 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
 
 	/**
 	 * Gets the minor version. This should be incremented when you add functionality in a backwards compatible manner.
+	 *
+	 * @since 1.0.0
 	 */
 	public int getMinor() {
 		return minor;
@@ -53,6 +59,8 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
 
 	/**
 	 * Gets the patch version. This should be incremented when you make backwards-compatible bug fixes.
+	 *
+	 * @since 1.0.0
 	 */
 	public int getPatch() {
 		return patch;
@@ -63,6 +71,7 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
 	 * including a hyphen in theversion.
 	 *
 	 * @see <a href="https://semver.org#spec-item-9">https://semver.org#spec-item-9</a>
+	 * @since 1.0.0
 	 */
 	public @Nullable String getSuffix() {
 		return suffix;
@@ -70,6 +79,8 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
 
 	/**
 	 * Creates an instance from major, minor and patch specified as integers.
+	 *
+	 * @since 1.0.0
 	 */
 	public SemanticVersion(int major, int minor, int patch) {
 		this(major, minor, patch, null);
@@ -77,6 +88,8 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
 
 	/**
 	 * Creates an instance from major, minor and patch specified as integers, and a string suffix.
+	 *
+	 * @since 1.0.0
 	 */
 	public SemanticVersion(int major, int minor, int patch, @Nullable String suffix) {
 		if (major < 0) {
@@ -99,6 +112,7 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
 	 *
 	 * @param in the string to parse
 	 * @throws NumberFormatException if the string is improperly formatted
+	 * @since 1.0.0
 	 */
 	public static SemanticVersion fromString(String in) {
 		Matcher matcher = stringPattern.matcher(in);

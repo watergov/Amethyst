@@ -20,7 +20,14 @@ package me.lucyy.watercore.api.user;
 
 import me.lucyy.watercore.api.data.DataStore;
 import net.kyori.adventure.text.Component;
+import java.util.UUID;
 
+/**
+ * A wrapper around a user, providing additional information.
+ *
+ * @author lucy
+ * @since 1.0.0
+ */
 public interface WaterCoreUser {
 
 	/**
@@ -30,6 +37,8 @@ public interface WaterCoreUser {
 	 *     <li>prefixes and suffixes for ranks</li>
 	 *     <li>statistics</li>
 	 * </ul>
+	 *
+	 * @since 1.0.0
 	 */
 	Component getDisplayName();
 
@@ -37,6 +46,21 @@ public interface WaterCoreUser {
 	 * Gets the user's global data store. This should be used to store player-specific data.
 	 *
 	 * @return the user's global data store
+	 * @since 1.0.0
 	 */
 	DataStore getDataStore();
+
+	/**
+	 * Gets the user's true username.
+	 *
+	 * @since 1.0.0
+	 */
+	String getUsername();
+
+	/**
+	 * Gets the user's unique ID depending on the server's authentication method.
+	 *
+	 * @since 1.0.0
+	 */
+	UUID getUuid();
 }

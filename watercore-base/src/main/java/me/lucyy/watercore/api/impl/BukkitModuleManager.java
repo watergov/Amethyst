@@ -19,6 +19,7 @@
 package me.lucyy.watercore.api.impl;
 
 import me.lucyy.common.command.Subcommand;
+import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.exception.ModuleInitException;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.module.WaterModule;
@@ -35,23 +36,27 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
+/**
+ * Implementation for the module manager.
+ *
+ * @author lucy
+ */
 public class BukkitModuleManager implements ModuleManager {
 
 	private final Map<Class<? extends WaterModule>, WaterModule> loadedModules = new HashMap<>();
 	private final Map<WaterModule, List<Listener>> listeners = new HashMap<>();
 	private final CommandMap commandMap;
 	private final WaterCorePlugin plugin;
+	private final WaterCoreProvider provider;
 
-	public BukkitModuleManager(@NotNull CommandMap commandMap, WaterCorePlugin plugin) {
+	public BukkitModuleManager(@NotNull CommandMap commandMap, WaterCorePlugin plugin, WaterCoreProvider provider) {
 		this.commandMap = commandMap;
 		this.plugin = plugin;
+		this.provider = provider;
 	}
 
 	@Override
@@ -75,8 +80,7 @@ public class BukkitModuleManager implements ModuleManager {
 	@Override
 	public void loadModule(Class<? extends WaterModule> clazz) throws ModuleInitException {
 		try {
-			WaterModule module = clazz.getDeclaredConstructor().newInstance();
-			module.onEnable();
+			WaterModule module = clazz.getConstructor(WaterCoreProvider.class).newInstance(provider);
 			for (Subcommand subcmd : module.getCommands()) {
 				commandMap.register("watercore." + module.getName(), new SubcommandWrapper(subcmd));
 			}
@@ -119,7 +123,6 @@ public class BukkitModuleManager implements ModuleManager {
 						loadModule(loaded.asSubclass(WaterModule.class));
 					}
 				} catch (final NoClassDefFoundError ignored) {
-					// fixme - do we need to log this?
 					plugin.getLogger().warning("Failed to load class '" + className + "'");
 				}
 			}
@@ -141,12 +144,23 @@ public class BukkitModuleManager implements ModuleManager {
 
 	@Override
 	public void unloadModule(WaterModule module) {
-		module.onDisable();
+		module.close();
 		List<Listener> moduleListeners = listeners.get(module);
 		if (moduleListeners != null) {
 			for (Listener list : moduleListeners) {
 				HandlerList.unregisterAll(list);
 			}
+			listeners.remove(module);
+		}
+		loadedModules.remove(module.getClass());
+	}
+
+
+	// fixme - potential concurrent access exception here
+	@Override
+	public void reloadModules() {
+		for (WaterModule module : getLoadedModules()) {
+			unloadModule(module);
 		}
 	}
 }

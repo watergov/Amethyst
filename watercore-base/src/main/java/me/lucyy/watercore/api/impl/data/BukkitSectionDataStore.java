@@ -16,16 +16,28 @@
  * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.lucyy.watercore.api.exception;
+package me.lucyy.watercore.api.impl.data;
 
-/**
- * An exception thrown when a module failes to load and enable.
- *
- * @author lucy
- * @since 1.0.0
- */
-public class ModuleInitException extends RuntimeException {
-	public ModuleInitException(String moduleName, Throwable cause) {
-		super("while initialising module " + moduleName, cause);
+import org.bukkit.configuration.ConfigurationSection;
+
+public class BukkitSectionDataStore extends AbstractBukkitDataStore {
+	private final AbstractBukkitDataStore parent;
+
+	/**
+	 * @param base the ConfigurationSection to use as a base
+	 */
+	public BukkitSectionDataStore(ConfigurationSection base, AbstractBukkitDataStore parent) {
+		super(base);
+		this.parent = parent;
+	}
+
+	@Override
+	protected void save() {
+		parent.save();
+	}
+
+	@Override
+	public void reload() {
+		parent.reload();
 	}
 }

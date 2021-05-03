@@ -26,6 +26,8 @@ import java.util.Objects;
  * A key for a value in a {@link DataStore}.
  *
  * @param <T> the type of the value at this key
+ * @author lucy
+ * @since 1.0.0
  */
 public class DataKey<T extends Serializable> {
 	private final String parent;
@@ -46,6 +48,7 @@ public class DataKey<T extends Serializable> {
 	 * @param parent the module this key belongs to
 	 * @param child  the child string node
 	 * @param clazz  the class of the expected type
+	 * @since 1.0.0
 	 */
 	public DataKey(WaterModule parent, String child, Class<T> clazz) {
 		this.parent = parent.getName();
@@ -59,6 +62,7 @@ public class DataKey<T extends Serializable> {
 	 * @param parent the name of the module this key belongs to
 	 * @param child  the child string node
 	 * @param clazz  the class of the expected type
+	 * @since 1.0.0
 	 */
 	public DataKey(String parent, String child, Class<T> clazz) {
 		this.parent = parent;
@@ -66,10 +70,20 @@ public class DataKey<T extends Serializable> {
 		this.clazz = clazz;
 	}
 
+	/**
+	 * Gets this key's expected value type.
+	 *
+	 * @since 1.0.0
+	 */
 	public Class<T> getClazz() {
 		return clazz;
 	}
 
+	/**
+	 * Gets the name of this key, formatted "parent.child".
+	 *
+	 * @since 1.0.0
+	 */
 	@Override
 	public String toString() {
 		return this.parent + "." + this.child;
@@ -80,6 +94,11 @@ public class DataKey<T extends Serializable> {
 		return Objects.hash(parent, child);
 	}
 
+	/**
+	 * Checks if this key is equal to another, comparing parent and children but not return type.
+	 *
+	 * @since 1.0.0
+	 */
 	@Override
 	public boolean equals(Object other) {
 		if (!(other instanceof DataKey<?>)) {

@@ -16,16 +16,29 @@
  * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.lucyy.watercore.api.exception;
+package me.lucyy.watercore.api.impl.data;
+
+import me.lucyy.watercore.api.data.DataKey;
+import me.lucyy.watercore.api.data.DataStore;
+import java.util.UUID;
 
 /**
- * An exception thrown when a module failes to load and enable.
+ * Wraps around a data store, caching player usernames and uuids.
  *
  * @author lucy
- * @since 1.0.0
  */
-public class ModuleInitException extends RuntimeException {
-	public ModuleInitException(String moduleName, Throwable cause) {
-		super("while initialising module " + moduleName, cause);
+public class UuidCache {
+	private final DataStore dataStore;
+
+	public UuidCache(DataStore dataStore) {
+		this.dataStore = dataStore;
+	}
+
+	public UUID getUuid(String name) {
+		return dataStore.getValue(new DataKey<>("uuidCache", name, UUID.class));
+	}
+
+	public void setUuid(String name, UUID id) {
+		dataStore.setValue(new DataKey<>("uuidCache", name, UUID.class), id);
 	}
 }

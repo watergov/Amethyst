@@ -19,20 +19,31 @@
 package me.lucyy.watercore.modules.core;
 
 import me.lucyy.common.command.Subcommand;
-import me.lucyy.watercore.api.WaterCore;
+import me.lucyy.common.util.UuidUtils;
+import me.lucyy.watercore.api.WaterCoreProvider;
+import me.lucyy.watercore.api.impl.WaterCoreImpl;
 import me.lucyy.watercore.api.module.WaterModule;
+import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
+import me.lucyy.watercore.core.WaterCoreVersion;
 import me.lucyy.watercore.modules.core.command.ReloadSubcommand;
 import me.lucyy.watercore.modules.core.command.VersionSubcommand;
+import me.lucyy.watercore.modules.core.listener.UuidCachingListener;
+import net.kyori.adventure.text.Component;
+import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.util.Set;
 
+/**
+ * Core module providing basic functionality such as version commands and basic placeholders.
+ *
+ * @author lucy
+ */
 public class CoreModule extends WaterModule {
 
-	private final Set<Subcommand> commands = Set.of(new VersionSubcommand(), new ReloadSubcommand());
-
-	public CoreModule() {
-	}
+	private final Set<Subcommand> commands;
+	private final WaterCoreProvider provider;
 
 	@Override
 	public @NotNull String getName() {
@@ -41,7 +52,7 @@ public class CoreModule extends WaterModule {
 
 	@Override
 	public @NotNull SemanticVersion getVersion() {
-		return WaterCore.getVersion();
+		return provider.getVersion();
 	}
 
 	@Override
@@ -49,8 +60,29 @@ public class CoreModule extends WaterModule {
 		return commands;
 	}
 
-	@Override
-	public void onEnable() {
+	public CoreModule(WaterCoreProvider provider) {
+		this.provider = provider;
+		commands = Set.of(new VersionSubcommand(provider), new ReloadSubcommand(provider));
+		Listener listener = new UuidCachingListener(((WaterCoreImpl) provider).getUuidCache());
+		provider.getModuleManager().registerListener(this, listener);
+	}
 
+	@Override
+	public @Nullable Component parsePlaceholder(String in, @Nullable WaterCoreUser user) {
+		if (user == null) {
+			return null;
+		}
+		switch (in) {
+			case "username":
+				return Component.text(user.getUsername());
+			case "uuid":
+				return Component.text(UuidUtils.toString(user.getUuid()));
+			case "displayname":
+				return user.getDisplayName();
+			case "version":
+				return Component.text(WaterCoreVersion.VERSION.toString());
+			default:
+				return null;
+		}
 	}
 }

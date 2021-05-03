@@ -16,20 +16,21 @@
  * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.lucyy.watercore.api.impl;
+package me.lucyy.watercore.api.impl.user;
 
-import me.lucyy.watercore.api.data.DataStore;
-import me.lucyy.watercore.api.user.WaterCoreUser;
-import net.kyori.adventure.text.Component;
+import me.lucyy.watercore.api.WaterCoreProvider;
+import me.lucyy.watercore.api.data.DataKey;
+import java.util.UUID;
 
-public class BukkitUser implements WaterCoreUser {
-	@Override
-	public Component getDisplayName() {
-		return null;
+public class BukkitUserFactory {
+	private final WaterCoreProvider provider;
+	private final DataKey<String> displayNameFormat = new DataKey<>("core", "displayNameFormat", String.class);
+
+	public BukkitUserFactory(WaterCoreProvider provider) {
+		this.provider = provider;
 	}
 
-	@Override
-	public DataStore getDataStore() {
-		return null;
+	public BukkitUser create(UUID uuid) {
+		return new BukkitUser(uuid, provider, displayNameFormat);
 	}
 }

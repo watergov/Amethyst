@@ -26,6 +26,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Wraps a Subcommand as a Bukkit command for injection.
+ *
+ * @author lucy
+ */
 public class SubcommandWrapper extends Command {
 	private final Subcommand subcommand;
 

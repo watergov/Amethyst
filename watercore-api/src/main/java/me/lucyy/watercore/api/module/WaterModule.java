@@ -20,6 +20,7 @@ package me.lucyy.watercore.api.module;
 
 import me.lucyy.common.command.Subcommand;
 import java.util.Set;
+import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
@@ -27,11 +28,19 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * A module.
+ * Instances of this class <b>must</b> provide a constructor with a single argument of type WaterCoreProvider.
+ * You should store this provided WaterCoreProvider locally.
+ *
+ * @author lucy
+ * @since 1.0.0
+ *
  */
-public abstract class WaterModule {
+public abstract class WaterModule implements AutoCloseable {
 
 	/**
 	 * Gets the name of this module.
+	 *
+	 * @since 1.0.0
 	 */
 	@NotNull
 	public abstract String getName();
@@ -39,37 +48,40 @@ public abstract class WaterModule {
 	/**
 	 * Gets the version of this module. The major and minor version should match the core that this plugin is built
 	 * against.
+	 *
+	 * @since 1.0.0
 	 */
 	@NotNull
 	public abstract SemanticVersion getVersion();
 
 	/**
-	 * Gets a set of commands that this plugin exposes. These commands will be exposed as root commands.
+	 * Gets a set of commands that this module exposes. These commands will be exposed as root commands.
+	 *
+	 * @since 1.0.0
 	 */
 	@NotNull
 	public abstract Set<Subcommand> getCommands();
 
 	/**
-	 * Called when this module is enabled.
-	 */
-	public void onEnable() {
-	}
-
-	/**
-	 * Called when this module is disabled.
-	 */
-	public void onDisable() {
-	}
-
-	/**
 	 * Parses a placeholder string to a component.
 	 *
-	 * @param in the stripped placeholder to parse. For example, the full placeholder %watercore_core_displayname% will
-	 *           be provided as "displayname".
-	 * @return a component containing the parsed placeholder, or null if this placeholder is invalid
+	 * @param in   the stripped placeholder to parse. For example, the full placeholder %watercore_core_displayname%
+	 *             will be provided as "displayname".
+	 * @param user a user for the placeholders to target. This parameter may be null if the placeholder requested is
+	 *             not player-specific.
+	 * @return a   component containing the parsed placeholder, or null if this placeholder is invalid or a
+	 *             player-specific placeholder has been requested when user is null
+	 * @since 1.0.0
 	 */
 	@Nullable
-	public Component parsePlaceholder(String in) {
+	public Component parsePlaceholder(String in, @Nullable WaterCoreUser user) {
 		return null;
+	}
+
+	/**
+	 * Called when this module is disposed.
+	 */
+	@Override
+	public void close() {
 	}
 }

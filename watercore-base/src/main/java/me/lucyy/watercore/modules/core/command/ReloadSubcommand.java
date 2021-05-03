@@ -25,13 +25,12 @@ import org.bukkit.command.CommandSender;
 
 public class ReloadSubcommand implements Subcommand {
 
-	private WaterCoreProvider provider;
+	private final WaterCoreProvider provider;
 
 	public ReloadSubcommand(WaterCoreProvider provider) {
 		this.provider = provider;
 	}
 
-	// TODO change this
 	@Override
 	public String getName() {
 		return "watercore-reload";
@@ -52,13 +51,14 @@ public class ReloadSubcommand implements Subcommand {
 		return "watercore.command.reload";
 	}
 
-	// TODO make this actually reload modules
 	@Override
 	public boolean execute(CommandSender sender, CommandSender target, String[] args) {
-		sender.sendMessage("Reloading... Note this command is a work-in-progress. Not everything is reloaded.");
+		sender.sendMessage("[WaterCore] Reloading... Note this command is a work-in-progress. Not everything is reloaded.");
 		if (provider.getConfig() instanceof BukkitConfigDataStore) {
 			((BukkitConfigDataStore) provider.getConfig()).reload();
 		}
+		provider.getModuleManager().reloadModules();
+		sender.sendMessage("[WaterCore] Reload complete.");
 		return true;
 	}
 }

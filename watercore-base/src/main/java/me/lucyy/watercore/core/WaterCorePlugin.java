@@ -29,13 +29,12 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public final class WaterCorePlugin extends JavaPlugin {
 
-	// TODO - java 11 detection
 	@Override
 	public void onEnable() {
 		try {
 			new Platform(this);
 			WaterCoreImpl waterCore = new WaterCoreImpl(this);
-			waterCore.getModuleManager().loadModule(CoreModule.class); // TODO remove this
+			waterCore.getModuleManager().loadModule(CoreModule.class);
 			// scan for files in the modules dir
 			File modulesDir = new File(getDataFolder(), "modules");
 			if (modulesDir.isFile()) {
@@ -43,6 +42,7 @@ public final class WaterCorePlugin extends JavaPlugin {
 				getPluginLoader().disablePlugin(this);
 				return;
 			}
+			//noinspection ResultOfMethodCallIgnored
 			modulesDir.mkdirs();
 
 			// this should not return null due to the directory check above

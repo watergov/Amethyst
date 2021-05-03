@@ -54,7 +54,7 @@ public abstract class WaterModule implements AutoCloseable {
 	public abstract SemanticVersion getVersion();
 
 	/**
-	 * Gets a set of commands that this plugin exposes. These commands will be exposed as root commands.
+	 * Gets a set of commands that this module exposes. These commands will be exposed as root commands.
 	 *
 	 * @since 1.0.0
 	 */

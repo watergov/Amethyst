@@ -90,4 +90,12 @@ public interface ModuleManager {
 	 * @since 1.0.0
 	 */
 	void unloadModule(WaterModule module);
+
+	/**
+	 * Reloads all modules. This will unregister all commands and events, dispose of the module instance
+	 * and then create a new one.
+	 *
+	 * @since 1.0.0
+	 */
+	void reloadModules();
 }

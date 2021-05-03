@@ -50,7 +50,7 @@ public class BukkitUser implements WaterCoreUser {
 		if (store instanceof BukkitConfigDataStore) {
 			return ((BukkitConfigDataStore) store).getSection("player." + UuidUtils.toString(getUuid()));
 		}
-		return null; // todo - depends on mysql
+		return null; // todo - depends on mysql, see github #12
 	}
 
 	@Override

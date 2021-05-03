@@ -36,10 +36,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
@@ -148,6 +145,17 @@ public class BukkitModuleManager implements ModuleManager {
 			for (Listener list : moduleListeners) {
 				HandlerList.unregisterAll(list);
 			}
+			listeners.remove(module);
+		}
+		loadedModules.remove(module.getClass());
+	}
+
+
+	// fixme - potential concurrent access exception here
+	@Override
+	public void reloadModules() {
+		for (WaterModule module : getLoadedModules()) {
+			unloadModule(module);
 		}
 	}
 }

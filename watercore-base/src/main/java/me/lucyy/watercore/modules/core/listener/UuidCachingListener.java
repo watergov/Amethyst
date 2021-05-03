@@ -18,7 +18,6 @@
 
 package me.lucyy.watercore.modules.core.listener;
 
-import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.impl.data.UuidCache;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -27,13 +26,10 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
-// TODO - register this
 public class UuidCachingListener implements Listener {
-	private final WaterCoreProvider provider;
 	private final UuidCache cache;
 
-	public UuidCachingListener(WaterCoreProvider provider, UuidCache cache) {
-		this.provider = provider;
+	public UuidCachingListener(UuidCache cache) {
 		this.cache = cache;
 	}
 

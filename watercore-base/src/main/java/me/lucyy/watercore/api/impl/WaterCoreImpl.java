@@ -49,9 +49,6 @@ public class WaterCoreImpl implements WaterCoreProvider {
 	private final UuidCache uuidCache;
 	private final BukkitUserFactory userFactory = new BukkitUserFactory(this);
 
-	/**
-	 * Default constructor
-	 */
 	public WaterCoreImpl(WaterCorePlugin plugin) throws NoSuchFieldException, IllegalAccessException {
 		final Field cmdMapField;
 		cmdMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
@@ -137,5 +134,9 @@ public class WaterCoreImpl implements WaterCoreProvider {
 			out = out.append(Component.text(part));
 		}
 		return out;
+	}
+
+	public UuidCache getUuidCache() {
+		return uuidCache;
 	}
 }

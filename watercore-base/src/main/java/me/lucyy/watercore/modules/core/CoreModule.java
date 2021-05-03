@@ -21,13 +21,16 @@ package me.lucyy.watercore.modules.core;
 import me.lucyy.common.command.Subcommand;
 import me.lucyy.common.util.UuidUtils;
 import me.lucyy.watercore.api.WaterCoreProvider;
+import me.lucyy.watercore.api.impl.WaterCoreImpl;
 import me.lucyy.watercore.api.module.WaterModule;
 import me.lucyy.watercore.api.user.WaterCoreUser;
 import me.lucyy.watercore.api.version.SemanticVersion;
 import me.lucyy.watercore.core.WaterCoreVersion;
 import me.lucyy.watercore.modules.core.command.ReloadSubcommand;
 import me.lucyy.watercore.modules.core.command.VersionSubcommand;
+import me.lucyy.watercore.modules.core.listener.UuidCachingListener;
 import net.kyori.adventure.text.Component;
+import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.util.Set;
@@ -55,6 +58,8 @@ public class CoreModule extends WaterModule {
 	public CoreModule(WaterCoreProvider provider) {
 		this.provider = provider;
 		commands = Set.of(new VersionSubcommand(provider), new ReloadSubcommand(provider));
+		Listener listener = new UuidCachingListener(((WaterCoreImpl) provider).getUuidCache());
+		provider.getModuleManager().registerListener(this, listener);
 	}
 
 	@Override

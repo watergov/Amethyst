@@ -28,9 +28,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 /**
- * Implementation for WaterCore static class.
+ * Provides methods to interface with the WaterCore API from a module.
  *
- * @see WaterCore
  * @author lucy
  * @since 1.0.0
  */

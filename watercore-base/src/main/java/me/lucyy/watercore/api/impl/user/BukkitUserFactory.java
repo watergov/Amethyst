@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 Lucy Poulton.
+ * Copyright © 2021 lucy.
  * This file is part of watercore.
  *
  * watercore is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
  * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package me.lucyy.watercore.api.impl;
+package me.lucyy.watercore.api.impl.user;
 
 import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.data.DataKey;

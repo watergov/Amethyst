@@ -29,6 +29,7 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public final class WaterCorePlugin extends JavaPlugin {
 
+	// TODO - java 11 detection
 	@Override
 	public void onEnable() {
 		try {

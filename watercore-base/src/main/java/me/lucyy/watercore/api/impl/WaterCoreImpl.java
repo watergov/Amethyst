@@ -22,6 +22,8 @@ import me.lucyy.common.command.FormatProvider;
 import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.data.DataStore;
 import me.lucyy.watercore.api.impl.data.BukkitConfigDataStore;
+import me.lucyy.watercore.api.impl.data.UuidCache;
+import me.lucyy.watercore.api.impl.user.BukkitUserFactory;
 import me.lucyy.watercore.api.module.ModuleManager;
 import me.lucyy.watercore.api.module.WaterModule;
 import me.lucyy.watercore.api.user.WaterCoreUser;
@@ -44,6 +46,8 @@ public class WaterCoreImpl implements WaterCoreProvider {
 	private final FormatProvider format;
 	private final DataStore config;
 	private final DataStore dataStore;
+	private final UuidCache uuidCache;
+	private final BukkitUserFactory userFactory = new BukkitUserFactory(this);
 
 	/**
 	 * Default constructor
@@ -57,6 +61,8 @@ public class WaterCoreImpl implements WaterCoreProvider {
 				new File(plugin.getDataFolder(), "config.yml"));
 		dataStore = new BukkitConfigDataStore(
 				new File(plugin.getDataFolder(), "datastore.yml"));
+		uuidCache = new UuidCache(new BukkitConfigDataStore(
+				new File(plugin.getDataFolder(), "uuidcache.yml")));
 
 
 		moduleManager = new BukkitModuleManager(cmdMap, plugin, this);
@@ -68,16 +74,15 @@ public class WaterCoreImpl implements WaterCoreProvider {
 		return moduleManager;
 	}
 
-	// TODO
 	@Override
 	public @Nullable WaterCoreUser userFromName(String name) {
-		return null;
+		@Nullable final UUID uuid = uuidCache.getUuid(name);
+		return uuid == null ? null : userFactory.create(uuid);
 	}
 
-	// TODO
 	@Override
 	public @Nullable WaterCoreUser userFromUuid(UUID uuid) {
-		return null;
+		return userFactory.create(uuid);
 	}
 
 	@Override

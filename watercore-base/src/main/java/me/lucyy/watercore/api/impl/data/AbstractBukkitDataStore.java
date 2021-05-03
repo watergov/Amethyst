@@ -30,7 +30,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * A data store tied to a YAML file.
+ * Base class for bukkit configuration-based data stores
+ *
+ * @author lucy
  */
 public abstract class AbstractBukkitDataStore implements DataStore {
 	protected final ConfigurationSection base;

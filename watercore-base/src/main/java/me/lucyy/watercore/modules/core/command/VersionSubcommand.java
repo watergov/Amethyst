@@ -18,7 +18,6 @@
 
 package me.lucyy.watercore.modules.core.command;
 
-import me.lucyy.common.command.FormatProvider;
 import me.lucyy.common.command.Subcommand;
 import me.lucyy.common.format.Platform;
 import me.lucyy.watercore.api.WaterCoreProvider;
@@ -29,6 +28,11 @@ import org.bukkit.command.CommandSender;
 
 import static me.lucyy.common.format.TextFormatter.formatTitle;
 
+/**
+ * Command to show the plugin's and all loaded modules' versions
+ *
+ * @author lucy
+ */
 public class VersionSubcommand implements Subcommand {
 	
 	private final WaterCoreProvider provider;

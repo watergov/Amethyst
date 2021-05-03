@@ -23,6 +23,11 @@ import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.impl.data.BukkitConfigDataStore;
 import org.bukkit.command.CommandSender;
 
+/**
+ * Command to reload the plugin.
+ *
+ * @author lucy
+ */
 public class ReloadSubcommand implements Subcommand {
 
 	private final WaterCoreProvider provider;

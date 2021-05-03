@@ -40,6 +40,11 @@ import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
+/**
+ * Implementation for the module manager.
+ *
+ * @author lucy
+ */
 public class BukkitModuleManager implements ModuleManager {
 
 	private final Map<Class<? extends WaterModule>, WaterModule> loadedModules = new HashMap<>();

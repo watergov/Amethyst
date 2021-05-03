@@ -30,6 +30,7 @@ import org.jetbrains.annotations.Nullable;
  * A module.
  * Instances of this class <b>must</b> provide a constructor with a single argument of type WaterCoreProvider.
  * You should store this provided WaterCoreProvider locally.
+ *
  * @author lucy
  * @since 1.0.0
  *

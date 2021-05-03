@@ -20,7 +20,12 @@ package me.lucyy.watercore.core;
 
 import me.lucyy.watercore.api.version.SemanticVersion;
 
-// intellij complains about this class a lot
+/**
+ * Stores the plugin's version. Be aware that IntelliJ likes to complain about this a lot.
+ * It builds fine, don't worry.
+ *
+ * @author lucy
+ */
 public class WaterCoreVersion {
 	public static final SemanticVersion VERSION = SemanticVersion.fromString("${project.version}");
 }

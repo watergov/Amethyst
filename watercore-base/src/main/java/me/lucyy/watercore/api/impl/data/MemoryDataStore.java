@@ -25,6 +25,11 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * An in-memory data store, primarily for testing.
+ *
+ * @author lucy
+ */
 public class MemoryDataStore implements DataStore {
 
 	private final Map<DataKey<? extends Serializable>, Serializable> storeMap = new HashMap<>();

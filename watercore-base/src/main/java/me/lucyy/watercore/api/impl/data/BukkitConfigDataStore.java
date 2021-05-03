@@ -30,6 +30,8 @@ import java.io.Serializable;
 
 /**
  * A data store tied to a YAML file.
+ *
+ * @author lucy
  */
 public class BukkitConfigDataStore extends AbstractBukkitDataStore {
 	private final File baseFile;

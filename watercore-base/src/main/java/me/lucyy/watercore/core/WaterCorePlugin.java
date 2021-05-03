@@ -19,14 +19,17 @@
 package me.lucyy.watercore.core;
 
 import me.lucyy.common.format.Platform;
-import me.lucyy.watercore.api.WaterCoreProvider;
 import me.lucyy.watercore.api.impl.WaterCoreImpl;
 import me.lucyy.watercore.modules.core.CoreModule;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.util.Objects;
 
-@SuppressWarnings("unused")
+/**
+ * Core plugin. This is the main entrypoint for WaterCore.
+ *
+ * @author lucy
+ */
 public final class WaterCorePlugin extends JavaPlugin {
 
 	@Override

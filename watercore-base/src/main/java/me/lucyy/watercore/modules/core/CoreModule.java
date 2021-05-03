@@ -35,6 +35,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.util.Set;
 
+/**
+ * Core module providing basic functionality such as version commands and basic placeholders.
+ *
+ * @author lucy
+ */
 public class CoreModule extends WaterModule {
 
 	private final Set<Subcommand> commands;

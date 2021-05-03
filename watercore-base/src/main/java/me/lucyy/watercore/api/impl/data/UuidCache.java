@@ -22,6 +22,11 @@ import me.lucyy.watercore.api.data.DataKey;
 import me.lucyy.watercore.api.data.DataStore;
 import java.util.UUID;
 
+/**
+ * Wraps around a data store, caching player usernames and uuids.
+ *
+ * @author lucy
+ */
 public class UuidCache {
 	private final DataStore dataStore;
 

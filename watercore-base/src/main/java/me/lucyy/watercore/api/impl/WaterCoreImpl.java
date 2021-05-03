@@ -40,6 +40,11 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.util.UUID;
 
+/**
+ * Implementation for WaterCoreProvider.
+ *
+ * @author lucy
+ */
 public class WaterCoreImpl implements WaterCoreProvider {
 
 	private final ModuleManager moduleManager;

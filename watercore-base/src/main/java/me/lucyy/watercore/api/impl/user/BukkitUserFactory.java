@@ -1,5 +1,5 @@
 /*
- * Copyright © 2021 lucy.
+ * Copyright © 2021 Lucy Poulton.
  * This file is part of watercore.
  *
  * watercore is free software: you can redistribute it and/or modify

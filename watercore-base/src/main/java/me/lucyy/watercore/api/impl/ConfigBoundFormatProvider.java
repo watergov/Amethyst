@@ -29,6 +29,8 @@ import java.util.Map;
 
 /**
  * A format provider bound to a DataStore.
+ *
+ * @author lucy
  */
 public class ConfigBoundFormatProvider implements FormatProvider {
 	private final DataStore store;

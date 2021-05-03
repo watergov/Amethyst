@@ -26,6 +26,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
+/**
+ * Listens for player joins and adds names/uuids to the cache.
+ *
+ * @author lucy
+ */
 public class UuidCachingListener implements Listener {
 	private final UuidCache cache;
 

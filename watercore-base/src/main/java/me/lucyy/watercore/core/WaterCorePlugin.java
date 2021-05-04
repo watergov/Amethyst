@@ -34,6 +34,9 @@ public final class WaterCorePlugin extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+
+		if(!(getVersion() > 11)) getServer().getPluginManager().disablePlugin(this);
+
 		try {
 			new Platform(this);
 			WaterCoreImpl waterCore = new WaterCoreImpl(this);
@@ -64,5 +67,18 @@ public final class WaterCorePlugin extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+	}
+
+	private static int getVersion() {
+		String ver = System.getProperty("java.version");
+		if (ver.startsWith("1.")) {
+			ver = ver.substring(2, 3);
+		} else {
+			int dot = ver.indexOf(".");
+			if (dot != -1) {
+				ver = ver.substring(0, dot);
+			}
+		}
+		return Integer.parseInt(ver);
 	}
 }

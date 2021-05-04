@@ -18,6 +18,7 @@
 
 package me.lucyy.watercore.core;
 
+import java.util.logging.Level;
 import me.lucyy.common.format.Platform;
 import me.lucyy.watercore.api.impl.WaterCoreImpl;
 import me.lucyy.watercore.modules.core.CoreModule;
@@ -35,7 +36,10 @@ public final class WaterCorePlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 
-		if(getVersion() > 11) getServer().getPluginManager().disablePlugin(this);
+		if(getVersion() < 11) {
+			getLogger().log(Level.SEVERE, "WaterCore requires Java 11 or higher! Disabling plugin.");
+			getServer().getPluginManager().disablePlugin(this);
+		}
 
 		try {
 			new Platform(this);

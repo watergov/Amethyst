@@ -18,12 +18,12 @@
 
 package me.lucyy.watercore.core;
 
+import java.io.File;
+import java.util.Objects;
 import me.lucyy.common.format.Platform;
 import me.lucyy.watercore.api.impl.WaterCoreImpl;
 import me.lucyy.watercore.modules.core.CoreModule;
 import org.bukkit.plugin.java.JavaPlugin;
-import java.io.File;
-import java.util.Objects;
 
 /**
  * Core plugin. This is the main entrypoint for WaterCore.
@@ -34,6 +34,12 @@ public final class WaterCorePlugin extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+
+		if(getVersion() < 11) {
+			getLogger().severe("WaterCore requires Java 11 or above! Disabling plugin.");
+			getServer().getPluginManager().disablePlugin(this);
+		}
+
 		try {
 			new Platform(this);
 			WaterCoreImpl waterCore = new WaterCoreImpl(this);
@@ -64,5 +70,11 @@ public final class WaterCorePlugin extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+	}
+
+	private static int getVersion() {
+		final String ver = System.getProperty("java.version");
+		final int dotIdx = ver.indexOf('.');
+		return Integer.parseInt(dotIdx == -1 ? ver : ver.substring(0, dotIdx));
 	}
 }

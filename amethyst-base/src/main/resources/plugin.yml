@@ -1,4 +1,4 @@
 name: WaterCore
-main: me.lucyy.watercore.core.WaterCorePlugin
+main: me.lucyy.amethyst.core.core.WaterCorePlugin
 version: ${project.version}
 authors: [ WaterMC ]

@@ -19,6 +19,7 @@
 package me.lucyy.amethyst.api.data;
 
 import me.lucyy.amethyst.api.module.AmethystModule;
+
 import java.io.Serializable;
 import java.util.Objects;
 

@@ -20,6 +20,7 @@ package me.lucyy.amethyst.api.impl.user;
 
 import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.data.DataKey;
+
 import java.util.UUID;
 
 public class BukkitUserFactory {

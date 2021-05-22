@@ -18,21 +18,22 @@
 
 package me.lucyy.amethyst.modules.core;
 
-import me.lucyy.amethyst.modules.core.command.ReloadSubcommand;
-import me.lucyy.amethyst.modules.core.command.VersionSubcommand;
-import me.lucyy.amethyst.modules.core.listener.UuidCachingListener;
-import me.lucyy.common.command.Subcommand;
-import me.lucyy.common.util.UuidUtils;
 import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.impl.AmethystImpl;
 import me.lucyy.amethyst.api.module.AmethystModule;
 import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
 import me.lucyy.amethyst.core.AmethystVersion;
+import me.lucyy.amethyst.modules.core.command.ReloadSubcommand;
+import me.lucyy.amethyst.modules.core.command.VersionSubcommand;
+import me.lucyy.amethyst.modules.core.listener.UuidCachingListener;
+import me.lucyy.common.command.Subcommand;
+import me.lucyy.common.util.UuidUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.Set;
 
 /**

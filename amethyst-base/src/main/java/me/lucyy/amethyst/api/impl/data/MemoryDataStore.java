@@ -18,9 +18,10 @@
 
 package me.lucyy.amethyst.api.impl.data;
 
-import me.lucyy.amethyst.api.data.DataStore;
 import me.lucyy.amethyst.api.data.DataKey;
+import me.lucyy.amethyst.api.data.DataStore;
 import org.jetbrains.annotations.Nullable;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;

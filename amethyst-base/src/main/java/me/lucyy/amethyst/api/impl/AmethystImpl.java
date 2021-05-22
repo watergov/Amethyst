@@ -18,24 +18,25 @@
 
 package me.lucyy.amethyst.api.impl;
 
+import me.lucyy.amethyst.api.AmethystProvider;
+import me.lucyy.amethyst.api.data.DataStore;
 import me.lucyy.amethyst.api.impl.data.BukkitConfigDataStore;
 import me.lucyy.amethyst.api.impl.data.UuidCache;
 import me.lucyy.amethyst.api.impl.user.BukkitUserFactory;
 import me.lucyy.amethyst.api.module.AmethystModule;
-import me.lucyy.amethyst.core.AmethystVersion;
-import me.lucyy.common.command.FormatProvider;
-import me.lucyy.amethyst.api.AmethystProvider;
-import me.lucyy.amethyst.api.data.DataStore;
 import me.lucyy.amethyst.api.module.ModuleManager;
 import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
 import me.lucyy.amethyst.core.AmethystPlugin;
+import me.lucyy.amethyst.core.AmethystVersion;
+import me.lucyy.common.command.FormatProvider;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.UUID;

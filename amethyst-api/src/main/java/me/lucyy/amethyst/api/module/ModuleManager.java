@@ -22,6 +22,7 @@ import me.lucyy.amethyst.api.exception.ModuleInitException;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.io.File;
 import java.util.Collection;
 

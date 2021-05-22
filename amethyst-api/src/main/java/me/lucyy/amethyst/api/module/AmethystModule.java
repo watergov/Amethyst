@@ -18,13 +18,14 @@
 
 package me.lucyy.amethyst.api.module;
 
-import me.lucyy.common.command.Subcommand;
-import java.util.Set;
 import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
+import me.lucyy.common.command.Subcommand;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Set;
 
 /**
  * A module.

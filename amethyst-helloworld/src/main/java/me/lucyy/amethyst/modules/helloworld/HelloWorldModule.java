@@ -18,10 +18,11 @@
 
 package me.lucyy.amethyst.modules.helloworld;
 
-import me.lucyy.common.command.Subcommand;
 import me.lucyy.amethyst.api.module.AmethystModule;
 import me.lucyy.amethyst.api.version.SemanticVersion;
+import me.lucyy.common.command.Subcommand;
 import org.jetbrains.annotations.NotNull;
+
 import java.util.Set;
 
 /**

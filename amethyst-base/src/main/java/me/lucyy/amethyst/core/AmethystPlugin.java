@@ -18,12 +18,13 @@
 
 package me.lucyy.amethyst.core;
 
-import java.io.File;
-import java.util.Objects;
-import me.lucyy.common.format.Platform;
 import me.lucyy.amethyst.api.impl.AmethystImpl;
 import me.lucyy.amethyst.modules.core.CoreModule;
+import me.lucyy.common.format.Platform;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.util.Objects;
 
 /**
  * Core plugin. This is the main entrypoint for Amethyst.

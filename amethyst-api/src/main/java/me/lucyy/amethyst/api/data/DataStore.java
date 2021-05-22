@@ -19,6 +19,7 @@
 package me.lucyy.amethyst.api.data;
 
 import org.jetbrains.annotations.Nullable;
+
 import java.io.Serializable;
 
 /**

@@ -18,25 +18,29 @@
 
 package me.lucyy.amethyst.api.impl;
 
-import me.lucyy.common.command.Subcommand;
 import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.exception.ModuleInitException;
-import me.lucyy.amethyst.api.module.ModuleManager;
 import me.lucyy.amethyst.api.module.AmethystModule;
+import me.lucyy.amethyst.api.module.ModuleManager;
 import me.lucyy.amethyst.core.AmethystPlugin;
 import me.lucyy.amethyst.core.command.SubcommandWrapper;
+import me.lucyy.common.command.Subcommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 

@@ -20,6 +20,7 @@ package me.lucyy.amethyst.api.impl.data;
 
 import me.lucyy.amethyst.api.data.DataKey;
 import me.lucyy.amethyst.api.data.DataStore;
+
 import java.util.UUID;
 
 /**

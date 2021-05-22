@@ -18,11 +18,11 @@
 
 package me.lucyy.amethyst.modules.core.command;
 
-import me.lucyy.common.command.Subcommand;
-import me.lucyy.common.format.Platform;
 import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.module.AmethystModule;
 import me.lucyy.amethyst.core.AmethystVersion;
+import me.lucyy.common.command.Subcommand;
+import me.lucyy.common.format.Platform;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 

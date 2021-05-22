@@ -18,9 +18,9 @@
 
 package me.lucyy.amethyst.modules.core.command;
 
-import me.lucyy.common.command.Subcommand;
 import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.impl.data.BukkitConfigDataStore;
+import me.lucyy.common.command.Subcommand;
 import org.bukkit.command.CommandSender;
 
 /**

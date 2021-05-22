@@ -20,6 +20,7 @@ package me.lucyy.amethyst.api.user;
 
 import me.lucyy.amethyst.api.data.DataStore;
 import net.kyori.adventure.text.Component;
+
 import java.util.UUID;
 
 /**

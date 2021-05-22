@@ -18,14 +18,15 @@
 
 package me.lucyy.amethyst.api.impl.user;
 
-import me.lucyy.common.util.UuidUtils;
 import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.data.DataKey;
 import me.lucyy.amethyst.api.data.DataStore;
 import me.lucyy.amethyst.api.impl.data.BukkitConfigDataStore;
 import me.lucyy.amethyst.api.user.AmethystUser;
+import me.lucyy.common.util.UuidUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+
 import java.util.UUID;
 
 public class BukkitUser implements AmethystUser {

@@ -20,9 +20,9 @@ jobs:
         java-version: '15'
         distribution: 'adopt'
     - name: Build with Maven
-      run: mvn -B javadoc:javadoc --file watercore-api/pom.xml
+      run: mvn -B javadoc:javadoc --file amethyst-api/pom.xml
     - name: Deploy javadocs
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./watercore-api/target/site/apidocs
+        publish_dir: ./amethyst-api/target/site/apidocs

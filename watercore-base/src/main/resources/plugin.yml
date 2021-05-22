@@ -1,4 +1,0 @@
-name: WaterCore
-main: me.lucyy.watercore.core.WaterCorePlugin
-version: ${project.version}
-authors: [ WaterMC ]

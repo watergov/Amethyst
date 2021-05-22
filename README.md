@@ -1,13 +1,16 @@
-# WaterCore
+# Amethyst
+![Build status badge](https://img.shields.io/teamcity/build/s/Amethyst_Build?server=https%3A%2F%2Fci.lucyy.me)
 
-Heavily WIP, does not work yet.
+Amethyst is a next-generation core plugin, designed to give your server everything it needs to get started. It's 
+designed to be highly modular and modern, supporting RGB from day one.
 
-Build with maven, standard `mvn clean package`. Depend on `me.lucyy:watercore-api` for modules, provided scope. Public repository coming Soon™.
+## Building
 
-### Code style
+Build the parent project with Maven as standard:
 
-Code style is based on Google, with some tweaks:
-- Removed import order checks (static should come after non-static)
-- Tab indentation instead of spaces
-- Line length increased to 124
-- Removed some javadoc-related checks
+`mvn clean package`
+
+## Contributing
+
+The project is still very early in development, and for this reason we kindly ask that you hold off from
+contributing any code without speaking to us first in our Discord server <https://support.lucyy.me>.

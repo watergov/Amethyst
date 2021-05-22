@@ -1,19 +1,19 @@
 /*
  * Copyright © 2021 Lucy Poulton.
- * This file is part of watercore.
+ * This file is part of amethyst.
  *
- * watercore is free software: you can redistribute it and/or modify
+ * amethyst is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * watercore is distributed in the hope that it will be useful,
+ * amethyst is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
+ * along with amethyst.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package me.lucyy.amethyst.api.module;
@@ -39,7 +39,7 @@ public interface ModuleManager {
 	 * @return the module instance, or null if it's not registered
 	 * @since 1.0.0
 	 */
-	<T extends WaterModule> @Nullable T getModule(Class<T> clazz);
+	<T extends AmethystModule> @Nullable T getModule(Class<T> clazz);
 
 	/**
 	 * Gets the instance of a module.
@@ -48,14 +48,14 @@ public interface ModuleManager {
 	 * @return the module instance, or null if it's not registered
 	 * @since 1.0.0
 	 */
-	@Nullable WaterModule getModule(String name);
+	@Nullable AmethystModule getModule(String name);
 
 	/**
 	 * Gets all enabled modules.
 	 *
 	 * @since 1.0.0
 	 */
-	Collection<WaterModule> getLoadedModules();
+	Collection<AmethystModule> getLoadedModules();
 
 	/**
 	 * Loads a module.
@@ -64,7 +64,7 @@ public interface ModuleManager {
 	 * @throws ModuleInitException if an exception is thrown when the module is instantiated or enabled
 	 * @since 1.0.0
 	 */
-	void loadModule(Class<? extends WaterModule> clazz) throws ModuleInitException;
+	void loadModule(Class<? extends AmethystModule> clazz) throws ModuleInitException;
 
 	/**
 	 * Loads from a file, instantiating any modules it finds.
@@ -81,7 +81,7 @@ public interface ModuleManager {
 	 * @param listener the listener to register
 	 * @since 1.0.0
 	 */
-	void registerListener(WaterModule module, Listener listener);
+	void registerListener(AmethystModule module, Listener listener);
 
 	/**
 	 * Unloads a module, deregistering its commands and listeners.
@@ -89,7 +89,7 @@ public interface ModuleManager {
 	 * @param module the module to unload
 	 * @since 1.0.0
 	 */
-	void unloadModule(WaterModule module);
+	void unloadModule(AmethystModule module);
 
 	/**
 	 * Reloads all modules. This will unregister all commands and events, dispose of the module instance

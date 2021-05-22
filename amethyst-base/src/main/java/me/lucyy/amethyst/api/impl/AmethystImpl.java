@@ -1,19 +1,19 @@
 /*
  * Copyright © 2021 Lucy Poulton.
- * This file is part of watercore.
+ * This file is part of amethyst.
  *
- * watercore is free software: you can redistribute it and/or modify
+ * amethyst is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * watercore is distributed in the hope that it will be useful,
+ * amethyst is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
+ * along with amethyst.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package me.lucyy.amethyst.api.impl;
@@ -21,15 +21,15 @@ package me.lucyy.amethyst.api.impl;
 import me.lucyy.amethyst.api.impl.data.BukkitConfigDataStore;
 import me.lucyy.amethyst.api.impl.data.UuidCache;
 import me.lucyy.amethyst.api.impl.user.BukkitUserFactory;
+import me.lucyy.amethyst.api.module.AmethystModule;
+import me.lucyy.amethyst.core.AmethystVersion;
 import me.lucyy.common.command.FormatProvider;
-import me.lucyy.amethyst.api.WaterCoreProvider;
+import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.data.DataStore;
 import me.lucyy.amethyst.api.module.ModuleManager;
-import me.lucyy.amethyst.api.module.WaterModule;
-import me.lucyy.amethyst.api.user.WaterCoreUser;
+import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
-import me.lucyy.amethyst.core.WaterCorePlugin;
-import me.lucyy.amethyst.core.WaterCoreVersion;
+import me.lucyy.amethyst.core.AmethystPlugin;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
@@ -41,11 +41,11 @@ import java.lang.reflect.Field;
 import java.util.UUID;
 
 /**
- * Implementation for WaterCoreProvider.
+ * Implementation for amethystProvider.
  *
  * @author lucy
  */
-public class WaterCoreImpl implements WaterCoreProvider {
+public class AmethystImpl implements AmethystProvider {
 
 	private final ModuleManager moduleManager;
 	private final FormatProvider format;
@@ -54,7 +54,7 @@ public class WaterCoreImpl implements WaterCoreProvider {
 	private final UuidCache uuidCache;
 	private final BukkitUserFactory userFactory = new BukkitUserFactory(this);
 
-	public WaterCoreImpl(WaterCorePlugin plugin) throws NoSuchFieldException, IllegalAccessException {
+	public AmethystImpl(AmethystPlugin plugin) throws NoSuchFieldException, IllegalAccessException {
 		final Field cmdMapField;
 		cmdMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 		cmdMapField.setAccessible(true);
@@ -77,19 +77,19 @@ public class WaterCoreImpl implements WaterCoreProvider {
 	}
 
 	@Override
-	public @Nullable WaterCoreUser userFromName(String name) {
+	public @Nullable AmethystUser userFromName(String name) {
 		@Nullable final UUID uuid = uuidCache.getUuid(name);
 		return uuid == null ? null : userFactory.create(uuid);
 	}
 
 	@Override
-	public @Nullable WaterCoreUser userFromUuid(UUID uuid) {
+	public @Nullable AmethystUser userFromUuid(UUID uuid) {
 		return userFactory.create(uuid);
 	}
 
 	@Override
 	public SemanticVersion getVersion() {
-		return WaterCoreVersion.VERSION;
+		return AmethystVersion.VERSION;
 	}
 
 	@Override
@@ -108,13 +108,13 @@ public class WaterCoreImpl implements WaterCoreProvider {
 	}
 
 	@Nullable
-	private Component parsePlaceholder(final String placeholder, @Nullable final WaterCoreUser user) {
+	private Component parsePlaceholder(final String placeholder, @Nullable final AmethystUser user) {
 		final int idx = placeholder.indexOf("_");
 		if (idx == -1) {
 			return null;
 		}
 		final String moduleName = placeholder.substring(0, idx);
-		final WaterModule module = moduleManager.getModule(moduleName);
+		final AmethystModule module = moduleManager.getModule(moduleName);
 		if (module == null) {
 			return null;
 		}
@@ -123,7 +123,7 @@ public class WaterCoreImpl implements WaterCoreProvider {
 
 	@Override
 	@Contract(pure = true)
-	public Component parsePlaceholders(@NotNull final String input, @Nullable final WaterCoreUser user) {
+	public Component parsePlaceholders(@NotNull final String input, @Nullable final AmethystUser user) {
 		Component out = Component.empty();
 		final String[] parts = input.split("(?<!\\\\)%");
 		final int modulus = input.startsWith("%") ? 1 : 0;

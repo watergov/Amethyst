@@ -1,24 +1,24 @@
 /*
  * Copyright © 2021 Lucy Poulton.
- * This file is part of watercore.
+ * This file is part of amethyst.
  *
- * watercore is free software: you can redistribute it and/or modify
+ * amethyst is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * watercore is distributed in the hope that it will be useful,
+ * amethyst is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
+ * along with amethyst.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package me.lucyy.amethyst.api.data;
 
-import me.lucyy.amethyst.api.module.WaterModule;
+import me.lucyy.amethyst.api.module.AmethystModule;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -50,14 +50,14 @@ public class DataKey<T extends Serializable> {
 	 * @param clazz  the class of the expected type
 	 * @since 1.0.0
 	 */
-	public DataKey(WaterModule parent, String child, Class<T> clazz) {
+	public DataKey(AmethystModule parent, String child, Class<T> clazz) {
 		this.parent = parent.getName();
 		this.child = child;
 		this.clazz = clazz;
 	}
 
 	/**
-	 * Creates a new key. Avoid using this in favour of {@link DataKey#DataKey(WaterModule, String, Class)}.
+	 * Creates a new key. Avoid using this in favour of {@link DataKey#DataKey(AmethystModule, String, Class)}.
 	 *
 	 * @param parent the name of the module this key belongs to
 	 * @param child  the child string node

@@ -17,6 +17,6 @@ assignees: ''
 
 **Screenshots if applicable**
 
-**Version** (please attach a screenshot of the full output of `/watercore version`.)
+**Version** (please attach a screenshot of the full output of `/amethyst version`.)
 
 **Any other details?**

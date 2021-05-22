@@ -1,28 +1,28 @@
 /*
  * Copyright © 2021 Lucy Poulton.
- * This file is part of watercore.
+ * This file is part of amethyst.
  *
- * watercore is free software: you can redistribute it and/or modify
+ * amethyst is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * watercore is distributed in the hope that it will be useful,
+ * amethyst is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
+ * along with amethyst.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package me.lucyy.amethyst.modules.core.command;
 
 import me.lucyy.common.command.Subcommand;
 import me.lucyy.common.format.Platform;
-import me.lucyy.amethyst.api.WaterCoreProvider;
-import me.lucyy.amethyst.api.module.WaterModule;
-import me.lucyy.amethyst.core.WaterCoreVersion;
+import me.lucyy.amethyst.api.AmethystProvider;
+import me.lucyy.amethyst.api.module.AmethystModule;
+import me.lucyy.amethyst.core.AmethystVersion;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 
@@ -35,15 +35,15 @@ import static me.lucyy.common.format.TextFormatter.formatTitle;
  */
 public class VersionSubcommand implements Subcommand {
 	
-	private final WaterCoreProvider provider;
+	private final AmethystProvider provider;
 
-	public VersionSubcommand(WaterCoreProvider provider) {
+	public VersionSubcommand(AmethystProvider provider) {
 		this.provider = provider;
 	}
 
 	@Override
 	public String getName() {
-		return "watercore";
+		return "amethyst";
 	}
 
 	@Override
@@ -65,14 +65,14 @@ public class VersionSubcommand implements Subcommand {
 	public boolean execute(CommandSender sender, CommandSender target, String[] args) {
 		Component nl = Component.newline();
 		Component out = Component.empty()
-				.append(formatTitle("WaterCore", provider.getFormatProvider()).append(nl));
+				.append(formatTitle("amethyst", provider.getFormatProvider()).append(nl));
 
-		Component coreVersion = nl.append(provider.getFormatProvider().formatMain("WaterCore version "))
-				.append(provider.getFormatProvider().formatAccent(WaterCoreVersion.VERSION.toString()));
+		Component coreVersion = nl.append(provider.getFormatProvider().formatMain("amethyst version "))
+				.append(provider.getFormatProvider().formatAccent(AmethystVersion.VERSION.toString()));
 
 		out = out.append(coreVersion).append(nl);
 
-		for (WaterModule module : provider.getModuleManager().getLoadedModules()) {
+		for (AmethystModule module : provider.getModuleManager().getLoadedModules()) {
 			Component moduleVersion = provider.getFormatProvider().formatMain(module.getName() + " ")
 					.append(provider.getFormatProvider().formatAccent(module.getVersion().toString()));
 			out = out.append(moduleVersion).append(nl);

@@ -1,39 +1,39 @@
 /*
  * Copyright © 2021 Lucy Poulton.
- * This file is part of watercore.
+ * This file is part of amethyst.
  *
- * watercore is free software: you can redistribute it and/or modify
+ * amethyst is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * watercore is distributed in the hope that it will be useful,
+ * amethyst is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
+ * along with amethyst.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package me.lucyy.amethyst.api.impl.user;
 
 import me.lucyy.common.util.UuidUtils;
-import me.lucyy.amethyst.api.WaterCoreProvider;
+import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.data.DataKey;
 import me.lucyy.amethyst.api.data.DataStore;
 import me.lucyy.amethyst.api.impl.data.BukkitConfigDataStore;
-import me.lucyy.amethyst.api.user.WaterCoreUser;
+import me.lucyy.amethyst.api.user.AmethystUser;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import java.util.UUID;
 
-public class BukkitUser implements WaterCoreUser {
+public class BukkitUser implements AmethystUser {
 	private final UUID uuid;
-	private final WaterCoreProvider provider;
+	private final AmethystProvider provider;
 	private final DataKey<String> nameFormatKey;
 
-	public BukkitUser(UUID uuid, WaterCoreProvider provider, DataKey<String> nameFormatKey) {
+	public BukkitUser(UUID uuid, AmethystProvider provider, DataKey<String> nameFormatKey) {
 		this.uuid = uuid;
 		this.provider = provider;
 		this.nameFormatKey = nameFormatKey;

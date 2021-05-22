@@ -1,19 +1,19 @@
 /*
  * Copyright © 2021 Lucy Poulton.
- * This file is part of watercore.
+ * This file is part of amethyst.
  *
- * watercore is free software: you can redistribute it and/or modify
+ * amethyst is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * watercore is distributed in the hope that it will be useful,
+ * amethyst is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
+ * along with amethyst.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package me.lucyy.amethyst.core;
@@ -21,29 +21,29 @@ package me.lucyy.amethyst.core;
 import java.io.File;
 import java.util.Objects;
 import me.lucyy.common.format.Platform;
-import me.lucyy.amethyst.api.impl.WaterCoreImpl;
+import me.lucyy.amethyst.api.impl.AmethystImpl;
 import me.lucyy.amethyst.modules.core.CoreModule;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * Core plugin. This is the main entrypoint for WaterCore.
+ * Core plugin. This is the main entrypoint for Amethyst.
  *
  * @author lucy
  */
-public final class WaterCorePlugin extends JavaPlugin {
+public final class AmethystPlugin extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
 
 		if(getVersion() < 11) {
-			getLogger().severe("WaterCore requires Java 11 or above! Disabling plugin.");
+			getLogger().severe("amethyst requires Java 11 or above! Disabling plugin.");
 			getServer().getPluginManager().disablePlugin(this);
 		}
 
 		try {
 			new Platform(this);
-			WaterCoreImpl waterCore = new WaterCoreImpl(this);
-			waterCore.getModuleManager().loadModule(CoreModule.class);
+			AmethystImpl amethyst = new AmethystImpl(this);
+			amethyst.getModuleManager().loadModule(CoreModule.class);
 			// scan for files in the modules dir
 			File modulesDir = new File(getDataFolder(), "modules");
 			if (modulesDir.isFile()) {
@@ -56,7 +56,7 @@ public final class WaterCorePlugin extends JavaPlugin {
 
 			// this should not return null due to the directory check above
 			for (File module : Objects.requireNonNull(modulesDir.listFiles())) {
-				waterCore.getModuleManager().loadModule(module);
+				amethyst.getModuleManager().loadModule(module);
 			}
 
 		} catch (NoSuchFieldException | IllegalAccessException e) {

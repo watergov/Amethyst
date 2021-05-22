@@ -1,19 +1,19 @@
 /*
  * Copyright © 2021 Lucy Poulton.
- * This file is part of watercore.
+ * This file is part of amethyst.
  *
- * watercore is free software: you can redistribute it and/or modify
+ * amethyst is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * watercore is distributed in the hope that it will be useful,
+ * amethyst is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
+ * along with amethyst.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package me.lucyy.amethyst.api;
@@ -21,33 +21,33 @@ package me.lucyy.amethyst.api;
 import me.lucyy.common.command.FormatProvider;
 import me.lucyy.amethyst.api.data.DataStore;
 import me.lucyy.amethyst.api.module.ModuleManager;
-import me.lucyy.amethyst.api.user.WaterCoreUser;
+import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 /**
- * Provides methods to interface with the WaterCore API from a module.
+ * Provides methods to interface with the amethyst API from a module.
  *
  * @author lucy
  * @since 1.0.0
  */
-public interface WaterCoreProvider {
+public interface AmethystProvider {
 	/**
 	 * Gets a user from their cached username, or null if this user is not cached.
 	 *
 	 * @return a user with the given name
 	 */
 	@Nullable
-	WaterCoreUser userFromName(final String name);
+	AmethystUser userFromName(final String name);
 
 	/**
 	 * Gets a user from their UUID, or null if this user is not cached.
 	 *
 	 * @return a user with the given UUID
 	 */
-	WaterCoreUser userFromUuid(final UUID uuid);
+	AmethystUser userFromUuid(final UUID uuid);
 
 	/**
 	 * Gets the module manager.
@@ -74,19 +74,19 @@ public interface WaterCoreProvider {
 	/**
 	 * Gets a global data store that will be shared across any servers running on the same database. This store should
 	 * be used to store persistent data, unrelated to config. Data should not be specific to any particular player -
-	 * use {@link WaterCoreUser#getDataStore()} for this purpose.
+	 * use {@link AmethystUser#getDataStore()} for this purpose.
 	 *
 	 * @return a global data store
 	 */
 	DataStore getDataStore();
 
 	/**
-	 * Parses a string containing WaterCore (not PlaceholderAPI) placeholders that will get parsed to components.
+	 * Parses a string containing amethyst (not PlaceholderAPI) placeholders that will get parsed to components.
 	 * Any invalid placeholders will be ignored and included as-is.
 	 *
 	 * @param input the string to process
 	 * @param user  a user for the placeholders to target, if not needed for the placeholder, then null
 	 * @return a Component, possibly containing extra data, including the parsed placeholders
 	 */
-	Component parsePlaceholders(String input, @Nullable WaterCoreUser user);
+	Component parsePlaceholders(String input, @Nullable AmethystUser user);
 }

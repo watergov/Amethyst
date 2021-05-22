@@ -1,19 +1,19 @@
 /*
  * Copyright © 2021 Lucy Poulton.
- * This file is part of watercore.
+ * This file is part of amethyst.
  *
- * watercore is free software: you can redistribute it and/or modify
+ * amethyst is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * watercore is distributed in the hope that it will be useful,
+ * amethyst is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
+ * along with amethyst.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package me.lucyy.amethyst.modules.core.listener;
@@ -44,7 +44,7 @@ public class UuidCachingListener implements Listener {
 		final @Nullable UUID lastUuid = cache.getUuid(e.getPlayer().getName());
 		if (!uuid.equals(lastUuid)) {
 			if (lastUuid != null) {
-				Bukkit.getLogger().warning("[WaterCore] Player '" + e.getPlayer().getName() + "' connected with "
+				Bukkit.getLogger().warning("[amethyst] Player '" + e.getPlayer().getName() + "' connected with "
 						+ "uuid " + uuid + ", but uuid " + lastUuid + " is cached - overwriting. "
 						+ "If you're using BungeeCord, check that IP forwarding is set up properly!");
 			}

@@ -1,26 +1,26 @@
 /*
  * Copyright © 2021 Lucy Poulton.
- * This file is part of watercore.
+ * This file is part of amethyst.
  *
- * watercore is free software: you can redistribute it and/or modify
+ * amethyst is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * watercore is distributed in the hope that it will be useful,
+ * amethyst is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
+ * along with amethyst.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package me.lucyy.amethyst.api.module;
 
 import me.lucyy.common.command.Subcommand;
 import java.util.Set;
-import me.lucyy.amethyst.api.user.WaterCoreUser;
+import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
@@ -28,14 +28,14 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * A module.
- * Instances of this class <b>must</b> provide a constructor with a single argument of type WaterCoreProvider.
- * You should store this provided WaterCoreProvider locally.
+ * Instances of this class <b>must</b> provide a constructor with a single argument of type AmethystProvider.
+ * You should store this provided amethystProvider locally.
  *
  * @author lucy
  * @since 1.0.0
  *
  */
-public abstract class WaterModule implements AutoCloseable {
+public abstract class AmethystModule implements AutoCloseable {
 
 	/**
 	 * Gets the name of this module.
@@ -65,7 +65,7 @@ public abstract class WaterModule implements AutoCloseable {
 	/**
 	 * Parses a placeholder string to a component.
 	 *
-	 * @param in   the stripped placeholder to parse. For example, the full placeholder %watercore_core_displayname%
+	 * @param in   the stripped placeholder to parse. For example, the full placeholder %amethyst_core_displayname%
 	 *             will be provided as "displayname".
 	 * @param user a user for the placeholders to target. This parameter may be null if the placeholder requested is
 	 *             not player-specific.
@@ -74,7 +74,7 @@ public abstract class WaterModule implements AutoCloseable {
 	 * @since 1.0.0
 	 */
 	@Nullable
-	public Component parsePlaceholder(String in, @Nullable WaterCoreUser user) {
+	public Component parsePlaceholder(String in, @Nullable AmethystUser user) {
 		return null;
 	}
 

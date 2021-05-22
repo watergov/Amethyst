@@ -1,29 +1,29 @@
 /*
  * Copyright © 2021 Lucy Poulton.
- * This file is part of watercore.
+ * This file is part of amethyst.
  *
- * watercore is free software: you can redistribute it and/or modify
+ * amethyst is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * watercore is distributed in the hope that it will be useful,
+ * amethyst is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with watercore.  If not, see <https://www.gnu.org/licenses/>.
+ * along with amethyst.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package me.lucyy.amethyst.api.impl;
 
 import me.lucyy.common.command.Subcommand;
-import me.lucyy.amethyst.api.WaterCoreProvider;
+import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.exception.ModuleInitException;
 import me.lucyy.amethyst.api.module.ModuleManager;
-import me.lucyy.amethyst.api.module.WaterModule;
-import me.lucyy.amethyst.core.WaterCorePlugin;
+import me.lucyy.amethyst.api.module.AmethystModule;
+import me.lucyy.amethyst.core.AmethystPlugin;
 import me.lucyy.amethyst.core.command.SubcommandWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
@@ -47,25 +47,25 @@ import java.util.jar.JarInputStream;
  */
 public class BukkitModuleManager implements ModuleManager {
 
-	private final Map<Class<? extends WaterModule>, WaterModule> loadedModules = new HashMap<>();
-	private final Map<WaterModule, List<Listener>> listeners = new HashMap<>();
+	private final Map<Class<? extends AmethystModule>, AmethystModule> loadedModules = new HashMap<>();
+	private final Map<AmethystModule, List<Listener>> listeners = new HashMap<>();
 	private final CommandMap commandMap;
-	private final WaterCorePlugin plugin;
-	private final WaterCoreProvider provider;
+	private final AmethystPlugin plugin;
+	private final AmethystProvider provider;
 
-	public BukkitModuleManager(@NotNull CommandMap commandMap, WaterCorePlugin plugin, WaterCoreProvider provider) {
+	public BukkitModuleManager(@NotNull CommandMap commandMap, AmethystPlugin plugin, AmethystProvider provider) {
 		this.commandMap = commandMap;
 		this.plugin = plugin;
 		this.provider = provider;
 	}
 
 	@Override
-	public <T extends WaterModule> @Nullable T getModule(Class<T> clazz) {
+	public <T extends AmethystModule> @Nullable T getModule(Class<T> clazz) {
 		return clazz.cast(loadedModules.get(clazz));
 	}
 
 	@Override
-	public @Nullable WaterModule getModule(String name) {
+	public @Nullable AmethystModule getModule(String name) {
 		return loadedModules.values().stream()
 				.filter(i -> i.getName().equals(name))
 				.findFirst()
@@ -73,16 +73,16 @@ public class BukkitModuleManager implements ModuleManager {
 	}
 
 	@Override
-	public Collection<WaterModule> getLoadedModules() {
+	public Collection<AmethystModule> getLoadedModules() {
 		return loadedModules.values();
 	}
 
 	@Override
-	public void loadModule(Class<? extends WaterModule> clazz) throws ModuleInitException {
+	public void loadModule(Class<? extends AmethystModule> clazz) throws ModuleInitException {
 		try {
-			WaterModule module = clazz.getConstructor(WaterCoreProvider.class).newInstance(provider);
+			AmethystModule module = clazz.getConstructor(AmethystProvider.class).newInstance(provider);
 			for (Subcommand subcmd : module.getCommands()) {
-				commandMap.register("watercore." + module.getName(), new SubcommandWrapper(subcmd));
+				commandMap.register("amethyst." + module.getName(), new SubcommandWrapper(subcmd));
 			}
 			loadedModules.put(clazz, module);
 			plugin.getLogger().info("Loaded module '" + module.getName() + "'.");
@@ -106,7 +106,7 @@ public class BukkitModuleManager implements ModuleManager {
 			return;
 		}
 
-		final URLClassLoader loader = new URLClassLoader(new URL[]{jar}, WaterModule.class.getClassLoader());
+		final URLClassLoader loader = new URLClassLoader(new URL[]{jar}, AmethystModule.class.getClassLoader());
 
 		try (final JarInputStream stream = new JarInputStream(jar.openStream())) {
 			JarEntry entry;
@@ -119,8 +119,8 @@ public class BukkitModuleManager implements ModuleManager {
 				final String className = name.substring(0, name.lastIndexOf('.')).replace('/', '.');
 				try {
 					final Class<?> loaded = loader.loadClass(className);
-					if (WaterModule.class.isAssignableFrom(loaded)) {
-						loadModule(loaded.asSubclass(WaterModule.class));
+					if (AmethystModule.class.isAssignableFrom(loaded)) {
+						loadModule(loaded.asSubclass(AmethystModule.class));
 					}
 				} catch (final NoClassDefFoundError ignored) {
 					plugin.getLogger().warning("Failed to load class '" + className + "'");
@@ -133,7 +133,7 @@ public class BukkitModuleManager implements ModuleManager {
 	}
 
 	@Override
-	public void registerListener(WaterModule module, Listener listener) {
+	public void registerListener(AmethystModule module, Listener listener) {
 		if (!listeners.containsKey(module)) {
 			listeners.put(module, List.of(listener));
 		} else {
@@ -143,7 +143,7 @@ public class BukkitModuleManager implements ModuleManager {
 	}
 
 	@Override
-	public void unloadModule(WaterModule module) {
+	public void unloadModule(AmethystModule module) {
 		module.close();
 		List<Listener> moduleListeners = listeners.get(module);
 		if (moduleListeners != null) {
@@ -159,7 +159,7 @@ public class BukkitModuleManager implements ModuleManager {
 	// fixme - potential concurrent access exception here
 	@Override
 	public void reloadModules() {
-		for (WaterModule module : getLoadedModules()) {
+		for (AmethystModule module : getLoadedModules()) {
 			unloadModule(module);
 		}
 	}

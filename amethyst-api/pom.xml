@@ -21,11 +21,11 @@
                     <relocations>
                         <relocation>
                             <pattern>me.lucyy.common</pattern>
-                            <shadedPattern>me.lucyy.watercore.dependencies.commonlib</shadedPattern>
+                            <shadedPattern>me.lucyy.amethyst.dependencies.commonlib</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>net.kyori.adventure</pattern>
-                            <shadedPattern>me.lucyy.watercore.dependencies.adventure</shadedPattern>
+                            <shadedPattern>me.lucyy.amethyst.dependencies.adventure</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

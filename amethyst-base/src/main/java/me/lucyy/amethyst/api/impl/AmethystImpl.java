@@ -29,7 +29,7 @@ import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
 import me.lucyy.amethyst.core.AmethystPlugin;
 import me.lucyy.amethyst.core.AmethystVersion;
-import me.lucyy.common.command.FormatProvider;
+import me.lucyy.squirtgun.format.FormatProvider;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;

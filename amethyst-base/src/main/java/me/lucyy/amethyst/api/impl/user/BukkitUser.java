@@ -23,19 +23,19 @@ import me.lucyy.amethyst.api.data.DataKey;
 import me.lucyy.amethyst.api.data.DataStore;
 import me.lucyy.amethyst.api.impl.data.BukkitConfigDataStore;
 import me.lucyy.amethyst.api.user.AmethystUser;
-import me.lucyy.common.util.UuidUtils;
+import me.lucyy.squirtgun.bukkit.BukkitPlayer;
+import me.lucyy.squirtgun.util.UuidUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
-public class BukkitUser implements AmethystUser {
-	private final UUID uuid;
+public class BukkitUser extends BukkitPlayer implements AmethystUser {
 	private final AmethystProvider provider;
 	private final DataKey<String> nameFormatKey;
 
 	public BukkitUser(UUID uuid, AmethystProvider provider, DataKey<String> nameFormatKey) {
-		this.uuid = uuid;
+		super(Bukkit.getOfflinePlayer(uuid));
 		this.provider = provider;
 		this.nameFormatKey = nameFormatKey;
 	}
@@ -55,12 +55,7 @@ public class BukkitUser implements AmethystUser {
 	}
 
 	@Override
-	public UUID getUuid() {
-		return uuid;
-	}
-
-	@Override
-	public String getUsername() {
-		return Bukkit.getOfflinePlayer(uuid).getName();
+	public boolean isConsole() {
+		return false;
 	}
 }

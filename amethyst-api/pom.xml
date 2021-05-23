@@ -20,8 +20,8 @@
                 <configuration>
                     <relocations>
                         <relocation>
-                            <pattern>me.lucyy.common</pattern>
-                            <shadedPattern>me.lucyy.amethyst.dependencies.commonlib</shadedPattern>
+                            <pattern>me.lucyy.squirtgun</pattern>
+                            <shadedPattern>me.lucyy.amethyst.dependencies.squirtgun</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>net.kyori.adventure</pattern>
@@ -51,8 +51,14 @@
         </dependency>
         <dependency>
             <groupId>me.lucyy</groupId>
-            <artifactId>LucyCommonLib</artifactId>
-            <version>1.6.1</version>
+            <artifactId>squirtgun-api</artifactId>
+            <version>2.0.0-pre1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.lucyy</groupId>
+            <artifactId>squirtgun-commands</artifactId>
+            <version>2.0.0-pre1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

@@ -20,7 +20,6 @@ package me.lucyy.amethyst.core;
 
 import me.lucyy.amethyst.api.impl.AmethystImpl;
 import me.lucyy.amethyst.modules.core.CoreModule;
-import me.lucyy.common.format.Platform;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -42,7 +41,6 @@ public final class AmethystPlugin extends JavaPlugin {
 		}
 
 		try {
-			new Platform(this);
 			AmethystImpl amethyst = new AmethystImpl(this);
 			amethyst.getModuleManager().loadModule(CoreModule.class);
 			// scan for files in the modules dir
@@ -62,8 +60,6 @@ public final class AmethystPlugin extends JavaPlugin {
 
 		} catch (NoSuchFieldException | IllegalAccessException e) {
 			e.printStackTrace();
-			getPluginLoader().disablePlugin(this);
-		} catch (ClassNotFoundException e) {
 			getPluginLoader().disablePlugin(this);
 		}
 		saveConfig();

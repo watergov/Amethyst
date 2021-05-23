@@ -20,15 +20,18 @@ package me.lucyy.amethyst.modules.core.command;
 
 import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.impl.data.BukkitConfigDataStore;
-import me.lucyy.common.command.Subcommand;
-import org.bukkit.command.CommandSender;
+import me.lucyy.amethyst.api.user.AmethystUser;
+import me.lucyy.squirtgun.command.context.CommandContext;
+import me.lucyy.squirtgun.command.node.CommandNode;
+import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Command to reload the plugin.
  *
  * @author lucy
  */
-public class ReloadSubcommand implements Subcommand {
+public class ReloadSubcommand implements CommandNode<AmethystUser> {
 
 	private final AmethystProvider provider;
 
@@ -37,8 +40,8 @@ public class ReloadSubcommand implements Subcommand {
 	}
 
 	@Override
-	public String getName() {
-		return "amethyst-reload";
+	public @NotNull String getName() {
+		return "reload";
 	}
 
 	@Override
@@ -47,23 +50,19 @@ public class ReloadSubcommand implements Subcommand {
 	}
 
 	@Override
-	public String getUsage() {
-		return "null";
-	}
-
-	@Override
 	public String getPermission() {
 		return "amethyst.command.reload";
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, CommandSender target, String[] args) {
-		sender.sendMessage("[amethyst] Reloading... Note this command is a work-in-progress. Not everything is reloaded.");
+	public Component execute(CommandContext<AmethystUser> context) {
+		context.getTarget().sendMessage(
+				Component.text("[Amethyst] Reloading... Note this command is a work-in-progress. Not everything is reloaded."));
+
 		if (provider.getConfig() instanceof BukkitConfigDataStore) {
 			((BukkitConfigDataStore) provider.getConfig()).reload();
 		}
 		provider.getModuleManager().reloadModules();
-		sender.sendMessage("[amethyst] Reload complete.");
-		return true;
+		return Component.text("[amethyst] Reload complete.");
 	}
 }

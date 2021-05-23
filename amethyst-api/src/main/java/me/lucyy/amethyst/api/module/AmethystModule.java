@@ -20,7 +20,8 @@ package me.lucyy.amethyst.api.module;
 
 import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
-import me.lucyy.common.command.Subcommand;
+import me.lucyy.squirtgun.command.node.CommandNode;
+import me.lucyy.squirtgun.platform.SquirtgunPlayer;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -61,7 +62,7 @@ public abstract class AmethystModule implements AutoCloseable {
 	 * @since 1.0.0
 	 */
 	@NotNull
-	public abstract Set<Subcommand> getCommands();
+	public abstract Set<CommandNode<AmethystUser>> getCommands();
 
 	/**
 	 * Parses a placeholder string to a component.

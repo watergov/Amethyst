@@ -20,11 +20,12 @@ package me.lucyy.amethyst.api.impl;
 
 import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.exception.ModuleInitException;
+import me.lucyy.amethyst.api.impl.user.BukkitUserFactory;
 import me.lucyy.amethyst.api.module.AmethystModule;
 import me.lucyy.amethyst.api.module.ModuleManager;
+import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.core.AmethystPlugin;
-import me.lucyy.amethyst.core.command.SubcommandWrapper;
-import me.lucyy.common.command.Subcommand;
+import me.lucyy.squirtgun.command.node.CommandNode;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.event.HandlerList;
@@ -56,11 +57,13 @@ public class BukkitModuleManager implements ModuleManager {
 	private final CommandMap commandMap;
 	private final AmethystPlugin plugin;
 	private final AmethystProvider provider;
+	private final BukkitUserFactory userFactory;
 
 	public BukkitModuleManager(@NotNull CommandMap commandMap, AmethystPlugin plugin, AmethystProvider provider) {
 		this.commandMap = commandMap;
 		this.plugin = plugin;
 		this.provider = provider;
+		this.userFactory = new BukkitUserFactory(provider);
 	}
 
 	@Override
@@ -85,8 +88,9 @@ public class BukkitModuleManager implements ModuleManager {
 	public void loadModule(Class<? extends AmethystModule> clazz) throws ModuleInitException {
 		try {
 			AmethystModule module = clazz.getConstructor(AmethystProvider.class).newInstance(provider);
-			for (Subcommand subcmd : module.getCommands()) {
-				commandMap.register("amethyst." + module.getName(), new SubcommandWrapper(subcmd));
+			for (CommandNode<AmethystUser> subcmd : module.getCommands()) {
+				commandMap.register("amethyst." + module.getName(),
+						new BukkitModuleCommand(subcmd, userFactory, provider));
 			}
 			loadedModules.put(clazz, module);
 			plugin.getLogger().info("Loaded module '" + module.getName() + "'.");

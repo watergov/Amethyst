@@ -38,10 +38,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
@@ -63,7 +60,7 @@ public class BukkitModuleManager implements ModuleManager {
 		this.commandMap = commandMap;
 		this.plugin = plugin;
 		this.provider = provider;
-		this.userFactory = new BukkitUserFactory(provider);
+		this.userFactory = new BukkitUserFactory(plugin);
 	}
 
 	@Override
@@ -161,14 +158,22 @@ public class BukkitModuleManager implements ModuleManager {
 			listeners.remove(module);
 		}
 		loadedModules.remove(module.getClass());
+		plugin.getLogger().info("Unloaded module " + module);
 	}
 
-
-	// fixme - potential concurrent access exception here
 	@Override
 	public void reloadModules() {
-		for (AmethystModule module : getLoadedModules()) {
+		Iterator<AmethystModule> iterator = getLoadedModules().iterator();
+		Set<Class<? extends AmethystModule>> classesToLoad = new HashSet<>();
+
+		while (iterator.hasNext()) {
+			AmethystModule module = iterator.next();
 			unloadModule(module);
+			classesToLoad.add(module.getClass());
+		}
+
+		for (Class<? extends AmethystModule> clazz : classesToLoad) {
+			loadModule(clazz);
 		}
 	}
 }

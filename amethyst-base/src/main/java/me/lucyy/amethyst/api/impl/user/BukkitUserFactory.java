@@ -20,18 +20,24 @@ package me.lucyy.amethyst.api.impl.user;
 
 import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.data.DataKey;
+import me.lucyy.amethyst.core.AmethystPlugin;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
 public class BukkitUserFactory {
-	private final AmethystProvider provider;
+	private final AmethystPlugin plugin;
 	private final DataKey<String> displayNameFormat = new DataKey<>("core", "displayNameFormat", String.class);
 
-	public BukkitUserFactory(AmethystProvider provider) {
-		this.provider = provider;
+	private final BukkitAudiences bukkitAudiences;
+
+	public BukkitUserFactory(AmethystPlugin plugin) {
+		this.plugin = plugin;
+		bukkitAudiences = BukkitAudiences.create(plugin);
 	}
 
-	public BukkitUser create(UUID uuid) {
-		return new BukkitUser(uuid, provider, displayNameFormat);
+	public AmethystBukkitUser create(UUID uuid) {
+		return new AmethystBukkitUser(uuid, plugin.getProvider(), displayNameFormat, bukkitAudiences.player(uuid));
 	}
 }

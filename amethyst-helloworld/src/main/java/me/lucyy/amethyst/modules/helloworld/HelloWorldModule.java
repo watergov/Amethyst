@@ -18,6 +18,7 @@
 
 package me.lucyy.amethyst.modules.helloworld;
 
+import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.module.AmethystModule;
 import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
@@ -32,6 +33,10 @@ import java.util.Set;
  * A very basic example module.
  */
 public class HelloWorldModule extends AmethystModule {
+
+	// this method is requires
+	public HelloWorldModule(AmethystProvider provider) { }
+
 	private final Set<CommandNode<AmethystUser>> commands = Set.of(
 			new NodeBuilder<AmethystUser>()
 			.name("hello")

@@ -53,9 +53,12 @@ public class AmethystImpl implements AmethystProvider {
 	private final DataStore config;
 	private final DataStore dataStore;
 	private final UuidCache uuidCache;
-	private final BukkitUserFactory userFactory = new BukkitUserFactory(this);
+	private final BukkitUserFactory userFactory;
 
 	public AmethystImpl(AmethystPlugin plugin) throws NoSuchFieldException, IllegalAccessException {
+
+		userFactory = new BukkitUserFactory(plugin);
+
 		final Field cmdMapField;
 		cmdMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 		cmdMapField.setAccessible(true);

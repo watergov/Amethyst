@@ -18,11 +18,9 @@
 
 package me.lucyy.amethyst.api.impl.user;
 
-import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.data.DataKey;
 import me.lucyy.amethyst.core.AmethystPlugin;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
@@ -39,5 +37,9 @@ public class BukkitUserFactory {
 
 	public AmethystBukkitUser create(UUID uuid) {
 		return new AmethystBukkitUser(uuid, plugin.getProvider(), displayNameFormat, bukkitAudiences.player(uuid));
+	}
+
+	public BukkitConsoleUser console() {
+		return new BukkitConsoleUser(bukkitAudiences.console());
 	}
 }

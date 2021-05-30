@@ -22,8 +22,6 @@ import me.lucyy.amethyst.api.data.DataStore;
 import me.lucyy.squirtgun.platform.SquirtgunPlayer;
 import net.kyori.adventure.text.Component;
 
-import java.util.UUID;
-
 /**
  * A wrapper around a user, providing additional information.
  *

@@ -32,7 +32,7 @@ public class BukkitModuleCommand extends Command {
         if (sender instanceof Player) {
             return userFactory.create(((Player) sender).getUniqueId());
         }
-        return new BukkitConsoleUser();
+        return userFactory.console();
     }
 
     @Override

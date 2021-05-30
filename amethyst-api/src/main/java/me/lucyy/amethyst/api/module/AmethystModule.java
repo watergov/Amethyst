@@ -21,7 +21,6 @@ package me.lucyy.amethyst.api.module;
 import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
 import me.lucyy.squirtgun.command.node.CommandNode;
-import me.lucyy.squirtgun.platform.SquirtgunPlayer;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +34,6 @@ import java.util.Set;
  *
  * @author lucy
  * @since 1.0.0
- *
  */
 public abstract class AmethystModule implements AutoCloseable {
 
@@ -72,7 +70,7 @@ public abstract class AmethystModule implements AutoCloseable {
 	 * @param user a user for the placeholders to target. This parameter may be null if the placeholder requested is
 	 *             not player-specific.
 	 * @return a   component containing the parsed placeholder, or null if this placeholder is invalid or a
-	 *             player-specific placeholder has been requested when user is null
+	 * player-specific placeholder has been requested when user is null
 	 * @since 1.0.0
 	 */
 	@Nullable

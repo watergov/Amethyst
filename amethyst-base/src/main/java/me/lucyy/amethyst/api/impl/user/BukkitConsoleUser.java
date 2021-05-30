@@ -4,16 +4,24 @@ import me.lucyy.amethyst.api.data.DataStore;
 import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.squirtgun.platform.Gamemode;
 import me.lucyy.squirtgun.platform.SquirtgunPlayer;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.audience.ForwardingAudience;
 import net.kyori.adventure.text.Component;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.UUID;
 
-public class BukkitConsoleUser implements SquirtgunPlayer, AmethystUser {
+public class BukkitConsoleUser implements SquirtgunPlayer, AmethystUser, ForwardingAudience.Single {
 
     private static final UUID ID = new UUID(0 ,0);
     private static final Component NAME_COMPONENT = Component.text("Console");
+    private final Audience audience;
 
-    @Override
+	public BukkitConsoleUser(Audience audience) {
+		this.audience = audience;
+	}
+
+	@Override
     public Component getDisplayName() {
         return NAME_COMPONENT;
     }
@@ -57,4 +65,9 @@ public class BukkitConsoleUser implements SquirtgunPlayer, AmethystUser {
     public void setGamemode(Gamemode gamemode) {
         throw new UnsupportedOperationException("Console cannot have a gamemode");
     }
+
+	@Override
+	public @NonNull Audience audience() {
+		return audience;
+	}
 }

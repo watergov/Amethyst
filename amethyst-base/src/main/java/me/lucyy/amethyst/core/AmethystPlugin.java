@@ -18,9 +18,9 @@
 
 package me.lucyy.amethyst.core;
 
+import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.impl.AmethystImpl;
 import me.lucyy.amethyst.modules.core.CoreModule;
-import me.lucyy.common.format.Platform;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -33,18 +33,24 @@ import java.util.Objects;
  */
 public final class AmethystPlugin extends JavaPlugin {
 
+	public AmethystProvider getProvider() {
+		return provider;
+	}
+
+	private AmethystProvider provider;
+
 	@Override
 	public void onEnable() {
 
 		if(getVersion() < 11) {
-			getLogger().severe("amethyst requires Java 11 or above! Disabling plugin.");
+			getLogger().severe("Amethyst requires Java 11 or above! Disabling plugin.");
 			getServer().getPluginManager().disablePlugin(this);
+			return;
 		}
 
 		try {
-			new Platform(this);
-			AmethystImpl amethyst = new AmethystImpl(this);
-			amethyst.getModuleManager().loadModule(CoreModule.class);
+			provider = new AmethystImpl(this);
+			provider.getModuleManager().loadModule(CoreModule.class);
 			// scan for files in the modules dir
 			File modulesDir = new File(getDataFolder(), "modules");
 			if (modulesDir.isFile()) {
@@ -57,13 +63,11 @@ public final class AmethystPlugin extends JavaPlugin {
 
 			// this should not return null due to the directory check above
 			for (File module : Objects.requireNonNull(modulesDir.listFiles())) {
-				amethyst.getModuleManager().loadModule(module);
+				provider.getModuleManager().loadModule(module);
 			}
 
 		} catch (NoSuchFieldException | IllegalAccessException e) {
 			e.printStackTrace();
-			getPluginLoader().disablePlugin(this);
-		} catch (ClassNotFoundException e) {
 			getPluginLoader().disablePlugin(this);
 		}
 		saveConfig();

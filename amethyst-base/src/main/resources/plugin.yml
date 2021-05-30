@@ -1,5 +1,5 @@
 name: Amethyst
-main: me.lucyy.amethyst.core.core.AmethystPlugin
+main: me.lucyy.amethyst.core.AmethystPlugin
 version: ${project.version}
 authors: [ "Amethyst Dev Team" ]
 website: https://amethyst.redaam.net

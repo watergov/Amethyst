@@ -1,4 +1,4 @@
-package me.lucyy.amethyst.modules.helloworld;/*
+/*
  * Copyright © 2021 Lucy Poulton.
  * This file is part of amethyst.
  *
@@ -16,33 +16,27 @@ package me.lucyy.amethyst.modules.helloworld;/*
  * along with amethyst.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import me.lucyy.common.command.Subcommand;
-import org.bukkit.command.CommandSender;
+package me.lucyy.amethyst.core;
 
-public class HelloWorldCommand implements Subcommand {
-	@Override
-	public String getName() {
-		return "helloworld";
-	}
+import me.lucyy.amethyst.api.version.SemanticVersion;
+import java.io.InputStream;
+import java.util.Objects;
+import java.util.Scanner;
 
-	@Override
-	public String getDescription() {
-		return "Hello world!";
-	}
+/**
+ * Stores the plugin's version. Be aware that IntelliJ likes to complain about this a lot.
+ * It builds fine, don't worry.
+ *
+ * @author lucy
+ */
+public class AmethystVersion {
+	public static final SemanticVersion VERSION;
 
-	@Override
-	public String getUsage() {
-		return "helloworld";
-	}
-
-	@Override
-	public String getPermission() {
-		return null;
-	}
-
-	@Override
-	public boolean execute(CommandSender sender, CommandSender target, String[] args) {
-		sender.sendMessage("Hello world!");
-		return true;
+	static {
+		InputStream file = AmethystVersion.class.getClassLoader().getResourceAsStream("amethyst-version.txt");
+		Objects.requireNonNull(file);
+		VERSION = SemanticVersion.fromString(new Scanner(file)
+				.useDelimiter("\\A")
+				.next());
 	}
 }

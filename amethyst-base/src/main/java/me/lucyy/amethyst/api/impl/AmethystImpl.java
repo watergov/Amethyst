@@ -29,7 +29,7 @@ import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
 import me.lucyy.amethyst.core.AmethystPlugin;
 import me.lucyy.amethyst.core.AmethystVersion;
-import me.lucyy.common.command.FormatProvider;
+import me.lucyy.squirtgun.format.FormatProvider;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
@@ -53,9 +53,12 @@ public class AmethystImpl implements AmethystProvider {
 	private final DataStore config;
 	private final DataStore dataStore;
 	private final UuidCache uuidCache;
-	private final BukkitUserFactory userFactory = new BukkitUserFactory(this);
+	private final BukkitUserFactory userFactory;
 
 	public AmethystImpl(AmethystPlugin plugin) throws NoSuchFieldException, IllegalAccessException {
+
+		userFactory = new BukkitUserFactory(plugin);
+
 		final Field cmdMapField;
 		cmdMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 		cmdMapField.setAccessible(true);

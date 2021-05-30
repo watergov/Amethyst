@@ -24,11 +24,12 @@ import me.lucyy.amethyst.api.module.AmethystModule;
 import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
 import me.lucyy.amethyst.core.AmethystVersion;
-import me.lucyy.amethyst.modules.core.command.ReloadSubcommand;
-import me.lucyy.amethyst.modules.core.command.VersionSubcommand;
+import me.lucyy.amethyst.modules.core.command.ReloadCommandNode;
+import me.lucyy.amethyst.modules.core.command.VersionCommandNode;
 import me.lucyy.amethyst.modules.core.listener.UuidCachingListener;
-import me.lucyy.common.command.Subcommand;
-import me.lucyy.common.util.UuidUtils;
+import me.lucyy.squirtgun.command.node.CommandNode;
+import me.lucyy.squirtgun.command.node.SubcommandNode;
+import me.lucyy.squirtgun.util.UuidUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
@@ -43,7 +44,7 @@ import java.util.Set;
  */
 public class CoreModule extends AmethystModule {
 
-	private final Set<Subcommand> commands;
+	private final Set<CommandNode<AmethystUser>> commands;
 	private final AmethystProvider provider;
 
 	@Override
@@ -57,13 +58,22 @@ public class CoreModule extends AmethystModule {
 	}
 
 	@Override
-	public @NotNull Set<Subcommand> getCommands() {
+	public @NotNull Set<CommandNode<AmethystUser>> getCommands() {
 		return commands;
 	}
 
 	public CoreModule(AmethystProvider provider) {
 		this.provider = provider;
-		commands = Set.of(new VersionSubcommand(provider), new ReloadSubcommand(provider));
+
+		commands = Set.of(
+				new SubcommandNode<>(
+						"amethyst",
+						null,
+						false,
+						new VersionCommandNode(provider),
+						new ReloadCommandNode(provider)
+				));
+
 		Listener listener = new UuidCachingListener(((AmethystImpl) provider).getUuidCache());
 		provider.getModuleManager().registerListener(this, listener);
 	}

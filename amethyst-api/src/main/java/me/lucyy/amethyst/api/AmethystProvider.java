@@ -22,7 +22,7 @@ import me.lucyy.amethyst.api.data.DataStore;
 import me.lucyy.amethyst.api.module.ModuleManager;
 import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
-import me.lucyy.common.command.FormatProvider;
+import me.lucyy.squirtgun.format.FormatProvider;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.Nullable;
 

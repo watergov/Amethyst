@@ -20,65 +20,59 @@ package me.lucyy.amethyst.modules.core.command;
 
 import me.lucyy.amethyst.api.AmethystProvider;
 import me.lucyy.amethyst.api.module.AmethystModule;
+import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.core.AmethystVersion;
-import me.lucyy.common.command.Subcommand;
-import me.lucyy.common.format.Platform;
+import me.lucyy.squirtgun.command.context.CommandContext;
+import me.lucyy.squirtgun.command.node.CommandNode;
+import me.lucyy.squirtgun.format.FormatProvider;
 import net.kyori.adventure.text.Component;
-import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
-import static me.lucyy.common.format.TextFormatter.formatTitle;
+import static me.lucyy.squirtgun.format.TextFormatter.formatTitle;
 
 /**
  * Command to show the plugin's and all loaded modules' versions
  *
  * @author lucy
  */
-public class VersionSubcommand implements Subcommand {
+public class VersionCommandNode implements CommandNode<AmethystUser> {
 	
 	private final AmethystProvider provider;
 
-	public VersionSubcommand(AmethystProvider provider) {
+	public VersionCommandNode(AmethystProvider provider) {
 		this.provider = provider;
 	}
 
 	@Override
-	public String getName() {
-		return "amethyst";
+	public @NotNull String getName() {
+		return "version";
 	}
 
 	@Override
 	public String getDescription() {
 		return "Shows the plugin's and all modules' version.";
 	}
+	
 
 	@Override
-	public String getUsage() {
-		return "";
-	}
-
-	@Override
-	public String getPermission() {
-		return null;
-	}
-
-	@Override
-	public boolean execute(CommandSender sender, CommandSender target, String[] args) {
-		Component nl = Component.newline();
+	public Component execute(final CommandContext<AmethystUser> context) {
+		final Component nl = Component.newline();
+		final FormatProvider fmt = context.getFormat();
+		
 		Component out = Component.empty()
-				.append(formatTitle("amethyst", provider.getFormatProvider()).append(nl));
+				.append(formatTitle("Amethyst", fmt).append(nl));
 
-		Component coreVersion = nl.append(provider.getFormatProvider().formatMain("amethyst version "))
-				.append(provider.getFormatProvider().formatAccent(AmethystVersion.VERSION.toString()));
+		Component coreVersion = nl.append(fmt.formatMain("Amethyst version "))
+				.append(fmt.formatAccent(AmethystVersion.VERSION.toString()));
 
 		out = out.append(coreVersion).append(nl);
 
 		for (AmethystModule module : provider.getModuleManager().getLoadedModules()) {
-			Component moduleVersion = provider.getFormatProvider().formatMain(module.getName() + " ")
-					.append(provider.getFormatProvider().formatAccent(module.getVersion().toString()));
+			Component moduleVersion = fmt.formatMain(module.getName() + " ")
+					.append(fmt.formatAccent(module.getVersion().toString()));
 			out = out.append(moduleVersion).append(nl);
 		}
-		out = out.append(nl).append(formatTitle("*", provider.getFormatProvider()));
-		Platform.send(sender, out);
-		return true;
+		out = out.append(nl).append(formatTitle("*", fmt));
+		return out;
 	}
 }

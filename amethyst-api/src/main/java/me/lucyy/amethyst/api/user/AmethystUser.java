@@ -19,9 +19,8 @@
 package me.lucyy.amethyst.api.user;
 
 import me.lucyy.amethyst.api.data.DataStore;
+import me.lucyy.squirtgun.platform.SquirtgunPlayer;
 import net.kyori.adventure.text.Component;
-
-import java.util.UUID;
 
 /**
  * A wrapper around a user, providing additional information.
@@ -29,7 +28,7 @@ import java.util.UUID;
  * @author lucy
  * @since 1.0.0
  */
-public interface AmethystUser {
+public interface AmethystUser extends SquirtgunPlayer {
 
 	/**
 	 * Gets the user's display name. This will vary depending on the enabled modules and the config, but may contain:
@@ -52,16 +51,9 @@ public interface AmethystUser {
 	DataStore getDataStore();
 
 	/**
-	 * Gets the user's true username.
+	 * Gets whether this user is the console.
 	 *
 	 * @since 1.0.0
 	 */
-	String getUsername();
-
-	/**
-	 * Gets the user's unique ID depending on the server's authentication method.
-	 *
-	 * @since 1.0.0
-	 */
-	UUID getUuid();
+	boolean isConsole();
 }

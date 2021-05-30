@@ -53,7 +53,7 @@ public class ConfigBoundFormatProvider implements FormatProvider {
 
 		store.setDefaultValue(mainKey, "&f");
 		store.setDefaultValue(accentKey, "{#80f4ff>}%s{#808aff<}");
-		store.setDefaultValue(prefixKey, "{#80f4ff>}amethyst{#808aff<} &7>>");
+		store.setDefaultValue(prefixKey, "{#80f4ff>}Amethyst{#808aff<} &7>>");
 
 	}
 

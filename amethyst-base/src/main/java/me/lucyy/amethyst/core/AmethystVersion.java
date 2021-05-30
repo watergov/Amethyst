@@ -19,6 +19,9 @@
 package me.lucyy.amethyst.core;
 
 import me.lucyy.amethyst.api.version.SemanticVersion;
+import java.io.InputStream;
+import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * Stores the plugin's version. Be aware that IntelliJ likes to complain about this a lot.
@@ -27,5 +30,13 @@ import me.lucyy.amethyst.api.version.SemanticVersion;
  * @author lucy
  */
 public class AmethystVersion {
-	public static final SemanticVersion VERSION = SemanticVersion.fromString("${project.version}");
+	public static final SemanticVersion VERSION;
+
+	static {
+		InputStream file = AmethystVersion.class.getClassLoader().getResourceAsStream("amethyst-version.txt");
+		Objects.requireNonNull(file);
+		VERSION = SemanticVersion.fromString(new Scanner(file)
+				.useDelimiter("\\A")
+				.next());
+	}
 }

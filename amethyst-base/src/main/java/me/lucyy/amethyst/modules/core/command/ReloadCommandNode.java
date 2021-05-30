@@ -31,11 +31,11 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author lucy
  */
-public class ReloadSubcommand implements CommandNode<AmethystUser> {
+public class ReloadCommandNode implements CommandNode<AmethystUser> {
 
 	private final AmethystProvider provider;
 
-	public ReloadSubcommand(AmethystProvider provider) {
+	public ReloadCommandNode(AmethystProvider provider) {
 		this.provider = provider;
 	}
 

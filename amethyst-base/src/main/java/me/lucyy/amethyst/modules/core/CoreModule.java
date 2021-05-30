@@ -24,7 +24,7 @@ import me.lucyy.amethyst.api.module.AmethystModule;
 import me.lucyy.amethyst.api.user.AmethystUser;
 import me.lucyy.amethyst.api.version.SemanticVersion;
 import me.lucyy.amethyst.core.AmethystVersion;
-import me.lucyy.amethyst.modules.core.command.ReloadSubcommand;
+import me.lucyy.amethyst.modules.core.command.ReloadCommandNode;
 import me.lucyy.amethyst.modules.core.command.VersionCommandNode;
 import me.lucyy.amethyst.modules.core.listener.UuidCachingListener;
 import me.lucyy.squirtgun.command.node.CommandNode;
@@ -71,7 +71,7 @@ public class CoreModule extends AmethystModule {
 						null,
 						false,
 						new VersionCommandNode(provider),
-						new ReloadSubcommand(provider)
+						new ReloadCommandNode(provider)
 				));
 
 		Listener listener = new UuidCachingListener(((AmethystImpl) provider).getUuidCache());
